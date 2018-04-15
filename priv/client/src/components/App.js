@@ -1,11 +1,11 @@
-import React, { Component } from 'react';Component
+import React, { Component } from 'react';
 
 
 class App extends Component {
     render() {
         return(
             <div>
-                <h1>Salut</h1>
+                <h1>Test success ?!</h1>
             </div>
         )
     }

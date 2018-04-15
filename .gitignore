@@ -15,4 +15,4 @@ erl_crash.dump
 # variables.
 /config/*.secret.exs
 
-/client/node_modules/
+/priv/client/node_modules/
