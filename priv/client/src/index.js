@@ -1,5 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './components/App';
+import { ChatContainer } from './containers';
 
-ReactDOM.render(<App />, document.getElementById('app'));
+ReactDOM.render(
+    <ChatContainer />,
+    document.getElementById('app'));
