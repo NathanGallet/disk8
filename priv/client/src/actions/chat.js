@@ -1,30 +1,12 @@
 import {
-    POST_CONTRACT,
-    POST_CONTRACT_SUCCESS,
-    POST_CONTRACT_FAILURE
-} from '../constants/contracts';
+    POST_MESSAGE,
+} from '../constants/chat';
 
-function postContract (informations) {
+function postMessage(informations) {
     return {
-        type: POST_CONTRACT,
+        type: POST_MESSAGE,
         informations
     };
 }
 
-function postContractSuccess () {
-    return {
-        type: POST_CONTRACT_SUCCESS
-    };
-}
-
-function postContractFailure () {
-    return {
-        type: POST_CONTRACT_FAILURE
-    };
-}
-
-export {
-    postContract,
-    postContractSuccess,
-    postContractFailure
-};
+export {postMessage };

@@ -1,20 +1,17 @@
-const io = require('socket.io-client');
-const colors = require('colors');
-const crypto = require('../crypto/crypto');
-
+import io from 'socket.io-client';
+import colors from 'colors';
+import crypto from '../crypto/crypto';
 
 var nickName;
-var currentRoom = null;
-var AESKey = null;
-var keyPair = null;
-var OP = false;
 var cryptedAES;
-var dataTest = "ceci est une phrase qui ne sert a rien";
+var currentRoom = null;
+var AESKey      = null;
+var keyPair     = null;
+var OP          = false;
+var dataTest    = "ceci est une phrase qui ne sert a rien";
 
-var socket = io.connect('http://localhost:1337');
-
-
-function getRSAPubPriv(){
+// ------------ Functions -----------
+const getRSAPubPriv = () => {
 
   var privateKey = crypto.generateRSAKeyPair(512);
   var publicKey = crypto.generateRSAPublicKey(privateKey);
@@ -25,7 +22,7 @@ function getRSAPubPriv(){
   }
 
 }
-function sendMessage(data){
+const sendMessage = (data) => {
   if(data[0] == '/') //If we have a slash its a command (e.g /join)
     return executeCommand(data.substring(1)); //Call execute command with the command (without the '/')
 
@@ -33,8 +30,7 @@ function sendMessage(data){
   socket.emit('talk', {pseudo: nickName, room: currentRoom ,message: data})
   rl.prompt();
 }
-
-function executeCommand(data){
+const executeCommand = (data) => {
   //Separate command from parameter (e.g join #parki)
   var command = data.split(' ')[0];
   var parameter = data.split(' ')[1];
@@ -70,8 +66,7 @@ function executeCommand(data){
 
   rl.prompt();
 }
-
-function displayMessage(data){
+const displayMessage = (data) => {
   var pseudo = data.pseudo;
   var message = data.message;
   var color;
@@ -106,6 +101,7 @@ function displayMessage(data){
   console.log( colors.pseudoColor(pseudo) + ': ' + message);
 }
 
+// ------------ Socket -----------
 //When the client is launched, we need to have a nick name then send it to the server
 rl.question("Please, tell me your name, and don't forget to follow the white rabbit...", function(name) {
   //add easter eggs if the name is Neo :D
@@ -122,12 +118,12 @@ rl.question("Please, tell me your name, and don't forget to follow the white rab
 
 rl.on('line', function(data){sendMessage(data);} )
 
-//display the message for all users
+//Display the message for all users
 socket.on('welcome', function(data){
   console.log( colors.yellow(data.message) );
   rl.prompt();
 });
-
+//Handle Message
 socket.on('message', function(data){
   data.message = crypto.decryptMessage(data.message, AESKey);
   displayMessage(data);
@@ -144,13 +140,12 @@ socket.on('aesForce', function(data){
   AESKey = crypto.decryptAES(cryptedAES, privateKey);
   rl.prompt();
 });
-// Use to send RSA public key to others, in the futur, it needs to be one user only
+//Use to send RSA public key to others, in the futur, it needs to be one user only
 socket.on('sendRSAPublic', function(data){
   publicKey = data.sendRSAPublic;
   cryptedAES = crypto.encryptAES(AESKey, publicKey);
   rl.prompt();
 });
-
 socket.on('youAreTheOP', function(){
   //Some display
   console.log(colors.yellow('You are the OP. Congratulation.') )
@@ -163,7 +158,6 @@ socket.on('youAreTheOP', function(){
   console.log(colors.yellow('AES key generated') )
 
 });
-
 socket.on('plzEncryptAES', function(user){
   console.log('In PzlEncryptAES');
   if( !OP )
@@ -175,7 +169,6 @@ socket.on('plzEncryptAES', function(user){
   console.log(colors.red('Done') )
 
 });
-
 socket.on('encryptedAES', function(message){
 
   console.log( colors.red('Decrypting recieved AES key...'));

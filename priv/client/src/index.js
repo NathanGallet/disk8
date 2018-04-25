@@ -1,7 +1,8 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { ChatContainer } from './containers';
+import Routes from './routes';
 
 ReactDOM.render(
-    <ChatContainer />,
-    document.getElementById('app'));
+    Routes,
+    document.getElementById('app')
+);
