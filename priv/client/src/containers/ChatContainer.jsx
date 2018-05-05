@@ -6,12 +6,7 @@ import * as actions from '../actions/chat';
 
 import { MessageBoard, MessageComposer, UserList } from '../components'
 
-
 class ChatContainer extends Component {
-    componentDidMount() {
-        console.log('state', this.state)
-        console.log('props', this.props)
-    }
 
     render () {
         return (
@@ -33,9 +28,8 @@ class ChatContainer extends Component {
 }
 
 const mapStateToProps = state => {
-    console.log('mapStateToProps', state.getIn(['chat', 'message'], Immutable.List()).toJS())
     return {
-        message: state.getIn(['chat', 'message'], Immutable.List()).toJS(),
+        message: state.getIn(['chat', 'message'], Immutable.List())
     };
 }
 
