@@ -38,7 +38,6 @@ defmodule Disk8Web do
       use Phoenix.HTML
 
       import Disk8Web.Router.Helpers
-      import Disk8Web.ErrorHelpers
       import Disk8Web.Gettext
     end
   end

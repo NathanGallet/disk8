@@ -2,7 +2,7 @@ defmodule Disk8Web.UserSocket do
   use Phoenix.Socket
 
   ## Channels
-  # channel "room:*", Disk8Web.RoomChannel
+  channel "room:*", Disk8Web.RoomChannel
 
   ## Transports
   transport :websocket, Phoenix.Transports.WebSocket
