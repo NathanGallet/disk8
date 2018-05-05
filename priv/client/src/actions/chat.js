@@ -2,11 +2,11 @@ import {
     POST_MESSAGE,
 } from '../constants/chat';
 
-function postMessage(informations) {
+function postMessage(message) {
     return {
         type: POST_MESSAGE,
-        informations
+        message
     };
 }
 
-export {postMessage };
+export { postMessage };

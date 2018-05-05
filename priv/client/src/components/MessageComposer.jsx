@@ -7,14 +7,17 @@ class MessageComposer extends Component {
         this.state = {
             message: ''
         };
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    sendMessage() {
-        console.log(this.state.message)
+    handleChange(event) {
+        this.setState({message: event.target.value});
     }
 
-    test(message) {
-        console.log(message)
+    handleSubmit(event) {
+        event.preventDefault();
+        this.props.sendMessage(this.state.message)
     }
 
     render () {
@@ -24,14 +27,8 @@ class MessageComposer extends Component {
                 <input
                     type        = "text"
                     placeholder = "Enter your message"
-                    onChange    = {(msg) => this.test(msg)}
-                />
-                <button
-                    type = "button"
-                    onClick = {this.sendMessage()} >
-                    Envoyer
-                </button>
-
+                    onChange    = {this.handleChange} />
+                <button onClick={this.handleSubmit}> Envoyer </button>
             </div>
         );
     }

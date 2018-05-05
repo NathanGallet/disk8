@@ -2,20 +2,27 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Immutable from 'immutable';
-import * as chatActionCreators from '../actions/chat';
+import * as actions from '../actions/chat';
 
 import { MessageBoard, MessageComposer, UserList } from '../components'
 
 
 class ChatContainer extends Component {
+    componentDidMount() {
+        console.log('state', this.state)
+        console.log('props', this.props)
+    }
+
     render () {
         return (
             <div className="ChatContainer">
                 <div className="MessageBoard">
-                    <MessageBoard />
+                    <MessageBoard
+                        messageToDisplay={this.props.message} />
                 </div>
                 <div className="MessageComposer">
-                    <MessageComposer />
+                    <MessageComposer
+                        sendMessage={this.props.postMessage} />
                 </div>
                 <div className="UserList">
                     <UserList />
@@ -25,18 +32,15 @@ class ChatContainer extends Component {
     }
 }
 
-// We can read values from the state thanks to mapStateToProps
-function mapStateToProps(state) {
+const mapStateToProps = state => {
+    console.log('mapStateToProps', state.getIn(['chat', 'message'], Immutable.List()).toJS())
     return {
-        informations: state.getIn(['informations', 'list'], Immutable.List()).toJS(),
-    }
+        message: state.getIn(['chat', 'message'], Immutable.List()).toJS(),
+    };
 }
 
-// We can dispatch actions to the reducer and sagas
-function mapDispatchToProps(dispatch) {
-    return {
-        chatActions: bindActionCreators(chatActionCreators, dispatch)
-    };
+const mapDispatchToProps = dispatch => {
+    return bindActionCreators(actions, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChatContainer);
