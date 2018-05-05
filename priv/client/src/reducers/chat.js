@@ -10,7 +10,7 @@ export default (state = initialState, action) => {
         case POST_MESSAGE: {
             return state.merge({
                 message: action.message
-            })
+            });
         }
 
         default:

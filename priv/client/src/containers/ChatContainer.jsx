@@ -13,7 +13,7 @@ class ChatContainer extends Component {
             <div className="ChatContainer">
                 <div className="MessageBoard">
                     <MessageBoard
-                        messageToDisplay={this.props.message} />
+                        messages={this.props.message} />
                 </div>
                 <div className="MessageComposer">
                     <MessageComposer

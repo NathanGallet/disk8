@@ -1,18 +1,12 @@
 import React, { Component } from 'react';
 
 class MessageBoard extends Component {
-    componentDidUpdate() {
-       console.log('MessageBoard props', this.props);
-    }
-
-    componentDidMount() {
-        console.log('MessageBoard props', this.props);
-    }
 
     render () {
+        const { messages } = this.props;
         return (
             <div>
-                {this.props.messageToDisplay}
+                { this.props.messages }
             </div>
         );
     }
