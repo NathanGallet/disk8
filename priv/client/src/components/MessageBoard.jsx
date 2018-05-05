@@ -6,7 +6,14 @@ class MessageBoard extends Component {
         const { messages } = this.props;
         return (
             <div>
-                { this.props.messages }
+                {
+                    messages
+                        .map((message, i) => {
+                            return (
+                                <p key={i}> {message} </p>
+                            );
+                        })
+                }
             </div>
         );
     }
