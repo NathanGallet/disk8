@@ -13,6 +13,7 @@ class ChatContainer extends Component {
         Sock8.createSocket()
         Sock8.joinChannel(DEFAULT_CHANNEL)
         Sock8.pushMessage("coucou")
+        Sock8._pushMessage(this.props.postMessage)
     }
 
     render () {

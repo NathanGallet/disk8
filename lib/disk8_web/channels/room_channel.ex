@@ -9,4 +9,10 @@ defmodule Disk8Web.RoomChannel do
     {:error, %{reason: "unauthorized"}}
   end
 
+  # Callback function
+  def handle_in("newMessage", message, socket) do
+    broadcast!(socket, "newMessage", %{content: message} )
+    {:noreply, socket}
+  end
+
 end

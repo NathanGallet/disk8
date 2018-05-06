@@ -25,6 +25,15 @@ class Disk8Sock8 {
     pushMessage(message) {
         this.channel.push("newMessage", message)
     }
+
+    _pushMessage(callbackFunction) {
+
+        // TODO: Change de payload, add informations of the user
+        this.channel.on("newMessage", payload => {
+            console.log('New Message :', payload)
+            callbackFunction(payload.content)
+        })
+    }
 }
 
 export const Sock8 = new Disk8Sock8(WS_API_URL)
