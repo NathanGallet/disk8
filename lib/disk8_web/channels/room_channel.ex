@@ -1,5 +1,5 @@
 defmodule Disk8Web.RoomChannel do
-  use Phoenix.Channel
+  use Disk8Web, :channel
 
   def join("room:lobby", _message, socket) do
     {:ok, socket}
@@ -11,7 +11,7 @@ defmodule Disk8Web.RoomChannel do
 
   # Callback function
   def handle_in("newMessage", message, socket) do
-    broadcast!(socket, "newMessage", %{content: message} )
+    broadcast!(socket, "newMessage", %{content: message})
     {:noreply, socket}
   end
 

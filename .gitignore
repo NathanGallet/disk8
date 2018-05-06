@@ -17,3 +17,4 @@ erl_crash.dump
 
 /priv/client/node_modules/
 /priv/static/js/bundle.js
+/doc/

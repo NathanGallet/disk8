@@ -22,6 +22,7 @@ defmodule Disk8Web do
       use Phoenix.Controller, namespace: Disk8Web
       import Plug.Conn
       import Disk8Web.Router.Helpers
+      import Disk8Web.ErrorHelpers
       import Disk8Web.Gettext
     end
   end
