@@ -3,23 +3,16 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Immutable from 'immutable';
 import * as actions from '../actions/chat';
-import { Socket } from "phoenix"
-
-import { MessageBoard, MessageComposer, UserList } from '../components'
+import { MessageBoard, MessageComposer, UserList } from '../components';
+import { Sock8 } from '../sockets';
+import { DEFAULT_CHANNEL } from '../utils/config';
 
 class ChatContainer extends Component {
 
-    // TODO: suppress, socket will be placed in an other part of the code
     componentDidMount() {
-        const ROOT_SOCKET = 'ws://localhost:4000';
-        let socket = new Socket(`${ROOT_SOCKET}/socket`);
-
-        socket.connect();
-        let channel = socket.channel("room:lobby", {});
-
-        channel.join()
-            .receive("ok", resp => { console.log("Joined successfully", resp) })
-            .receive("error", resp => { console.log("Unable to join", resp) })
+        Sock8.createSocket()
+        Sock8.joinChannel(DEFAULT_CHANNEL)
+        Sock8.pushMessage("coucou")
     }
 
     render () {
