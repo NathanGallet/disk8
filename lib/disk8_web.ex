@@ -29,16 +29,15 @@ defmodule Disk8Web do
 
   def view do
     quote do
-      use Phoenix.View, root: "lib/disk8_web/templates",
-                        namespace: Disk8Web
+      use Phoenix.View,
+        root: "lib/disk8_web/templates",
+        namespace: Disk8Web
 
       # Import convenience functions from controllers
       import Phoenix.Controller, only: [get_flash: 2, view_module: 1]
 
-      # Use all HTML functionality (forms, tags, etc)
-      use Phoenix.HTML
-
       import Disk8Web.Router.Helpers
+      import Disk8Web.ErrorHelpers
       import Disk8Web.Gettext
     end
   end

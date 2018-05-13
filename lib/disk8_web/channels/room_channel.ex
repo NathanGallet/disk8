@@ -1,7 +1,13 @@
 defmodule Disk8Web.RoomChannel do
+  @moduledoc """
+  The Room socket
+
+  """
   use Disk8Web, :channel
+  require Logger
 
   def join("room:lobby", _message, socket) do
+    Logger.debug("Join lobby room")
     {:ok, socket}
   end
 
@@ -14,5 +20,4 @@ defmodule Disk8Web.RoomChannel do
     broadcast!(socket, "new_user", %{content: message})
     {:noreply, socket}
   end
-
 end

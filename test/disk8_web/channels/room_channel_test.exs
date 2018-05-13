@@ -17,7 +17,7 @@ defmodule Disk8Web.RoomChannelTest do
   end
 
   test "broadcasts are pushed to the client", %{socket: socket} do
-    broadcast_from! socket, "broadcast", %{"some" => "data"}
-    assert_push "broadcast", %{"some" => "data"}
+    broadcast_from!(socket, "broadcast", %{"some" => "data"})
+    assert_push("broadcast", %{"some" => "data"})
   end
 end
