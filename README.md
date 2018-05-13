@@ -8,6 +8,7 @@ To start your Phoenix server:
   * Create and migrate your database with `mix ecto.create && mix ecto.migrate`
   * You can test the application with `mix test`
   * You can generate the api documentation using `mix docs`
+  * Code analysis using `mix credo`
 
 #### Client
 

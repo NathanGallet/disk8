@@ -50,6 +50,8 @@ defmodule Disk8.Mixfile do
       {:gettext, "~> 0.11"},
       {:cowboy, "~> 1.0"},
       # My plugs
+      {:proper_case, "~> 1.0.0"},
+      {:guardian, "~> 1.0"},
       {:credo, "~> 0.9.1", only: [:dev, :test], runtime: false},
       {:ex_doc, "~> 0.16", only: :dev, runtime: false},
     ]
