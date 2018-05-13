@@ -2,6 +2,9 @@ defmodule Disk8Web.RoomChannelTest do
   use Disk8Web.ChannelCase
 
   alias Disk8Web.RoomChannel
+  alias Disk8.Accounts
+
+  @first_user %{name: "Zios"}
 
   setup do
     {:ok, _, socket} =
@@ -11,9 +14,10 @@ defmodule Disk8Web.RoomChannelTest do
     {:ok, socket: socket}
   end
 
-  test "new user connectio to room:lobby", %{socket: socket} do
-    push(socket, "new_user", %{"hello" => "all"})
-    assert_broadcast("new_user", %{"hello" => "all"})
+  test "new user connection to room:lobby", %{socket: socket} do
+    {:ok, first_user} = Accounts.create_user(@first_user)
+    push(socket, "new_user", %{id: first_user.id})
+    assert_broadcast("new_user", %{user: "Zios"})
   end
 
   test "broadcasts are pushed to the client", %{socket: socket} do

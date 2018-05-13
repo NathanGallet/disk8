@@ -4,10 +4,9 @@ defmodule Disk8Web.RoomChannel do
 
   """
   use Disk8Web, :channel
-  require Logger
+  alias Disk8.Accounts
 
   def join("room:lobby", _message, socket) do
-    Logger.debug("Join lobby room")
     {:ok, socket}
   end
 
@@ -16,8 +15,9 @@ defmodule Disk8Web.RoomChannel do
   end
 
   # Callback function
-  def handle_in("new_user", message, socket) do
-    broadcast!(socket, "new_user", %{content: message})
+  def handle_in("new_user", %{"id" => id}, socket) do
+    user = Accounts.get_user!(id)
+    broadcast!(socket, "new_user", %{user: user.name})
     {:noreply, socket}
   end
 end
