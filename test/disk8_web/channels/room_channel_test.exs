@@ -5,6 +5,9 @@ defmodule Disk8Web.RoomChannelTest do
   alias Disk8.Accounts
 
   @first_user %{name: "Zios"}
+  @second_user %{name: "Thibz"}
+  @first_message "Yo"
+  @second_message "Plait"
 
   setup do
     {:ok, _, socket} =
@@ -20,8 +23,14 @@ defmodule Disk8Web.RoomChannelTest do
     assert_broadcast("new_user", %{user: "Zios"})
   end
 
-  test "broadcasts are pushed to the client", %{socket: socket} do
-    broadcast_from!(socket, "broadcast", %{"some" => "data"})
-    assert_push("broadcast", %{"some" => "data"})
+  test "message is broadcasted to client", %{socket: socket} do
+    {:ok, first_user} = Accounts.create_user(@first_user)
+    {:ok, second_user} = Accounts.create_user(@second_user)
+
+    push(socket, "message", %{id: first_user.id, message: @first_message})
+    push(socket, "message", %{id: second_user.id, message: @second_message})
+
+    assert_broadcast("message", %{user: "Zios", message: @first_message})
+    assert_broadcast("message", %{user: "Thibz", message: @second_message})
   end
 end

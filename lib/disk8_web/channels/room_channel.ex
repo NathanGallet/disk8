@@ -20,4 +20,10 @@ defmodule Disk8Web.RoomChannel do
     broadcast!(socket, "new_user", %{user: user.name})
     {:noreply, socket}
   end
+
+  def handle_in("message", %{"message" => message, "id" => id}, socket) do
+    user = Accounts.get_user!(id)
+    broadcast!(socket, "message", %{user: user.name, message: message})
+    {:noreply, socket}
+  end
 end
