@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Immutable from 'immutable';
 
 class MessageComposer extends Component {
 
@@ -7,14 +8,27 @@ class MessageComposer extends Component {
         this.state = {
             message: ''
         };
+        this.handleChange   = this.handleChange.bind(this);
+        this.handleSubmit   = this.handleSubmit.bind(this);
+        this.handleKeyPress = this.handleKeyPress.bind(this);
     }
 
-    sendMessage() {
-        console.log(this.state.message)
+    handleChange(event) {
+        this.setState({message: event.target.value});
     }
 
-    test(message) {
-        console.log(message)
+    handleKeyPress(event) {
+        if(event.key == 'Enter') {
+            event.preventDefault();
+            this.props.sendMessage(Immutable.fromJS(this.state.message));
+            event.target.value = '';
+        }
+    }
+
+    handleSubmit(event) {
+        event.preventDefault();
+        this.props.sendMessage(this.state.message)
+        event.target.value = '';
     }
 
     render () {
@@ -24,14 +38,10 @@ class MessageComposer extends Component {
                 <input
                     type        = "text"
                     placeholder = "Enter your message"
-                    onChange    = {(msg) => this.test(msg)}
-                />
-                <button
-                    type = "button"
-                    onClick = {this.sendMessage()} >
-                    Envoyer
-                </button>
+                    onKeyPress  = {this.handleKeyPress}
+                    onChange    = {this.handleChange} />
 
+                <button onClick={this.handleSubmit}> Envoyer </button>
             </div>
         );
     }

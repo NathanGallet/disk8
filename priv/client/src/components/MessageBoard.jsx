@@ -3,9 +3,17 @@ import React, { Component } from 'react';
 class MessageBoard extends Component {
 
     render () {
+        const { messages } = this.props;
         return (
             <div>
-                <p> MessageBoard </p>
+                {
+                    messages
+                        .map((message, i) => {
+                            return (
+                                <p key={i}> {message} </p>
+                            );
+                        })
+                }
             </div>
         );
     }

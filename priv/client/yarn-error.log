@@ -25,11 +25,13 @@ npm manifest:
       },
       "dependencies": {
           "immutable": "^3.8.2",
+          "phoenix": "^1.3.0",
           "react": "^16.3.1",
           "react-dom": "^16.3.1",
           "react-redux": "^5.0.7",
           "react-router-dom": "^4.2.2",
           "redux": "^3.7.2",
+          "redux-immutable": "^4.0.0",
           "redux-saga": "^0.16.0",
           "socket.io-client": "^2.1.0"
       },
@@ -4219,6 +4221,10 @@ Lockfile:
       safe-buffer "^5.0.1"
       sha.js "^2.4.8"
   
+  phoenix@^1.3.0:
+    version "1.3.0"
+    resolved "https://registry.yarnpkg.com/phoenix/-/phoenix-1.3.0.tgz#1df2c27f986ee295e37c9983ec28ebac1d7f4a3e"
+  
   pify@^2.0.0, pify@^2.3.0:
     version "2.3.0"
     resolved "https://registry.yarnpkg.com/pify/-/pify-2.3.0.tgz#ed141a6ac043a849ea588498e7dca8b15330e90c"
@@ -4584,6 +4590,10 @@ Lockfile:
     dependencies:
       indent-string "^2.1.0"
       strip-indent "^1.0.1"
+  
+  redux-immutable@^4.0.0:
+    version "4.0.0"
+    resolved "https://registry.yarnpkg.com/redux-immutable/-/redux-immutable-4.0.0.tgz#3a1a32df66366462b63691f0e1dc35e472bbc9f3"
   
   redux-saga@^0.16.0:
     version "0.16.0"

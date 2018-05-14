@@ -3,17 +3,6 @@ defmodule Disk8Web.ErrorHelpers do
   Conveniences for translating and building error messages.
   """
 
-  use Phoenix.HTML
-
-  @doc """
-  Generates tag for inlined form input errors.
-  """
-  def error_tag(form, field) do
-    Enum.map(Keyword.get_values(form.errors, field), fn (error) ->
-      content_tag :span, translate_error(error), class: "help-block"
-    end)
-  end
-
   @doc """
   Translates an error message using gettext.
   """
@@ -31,10 +20,12 @@ defmodule Disk8Web.ErrorHelpers do
     #     dngettext "errors", "1 file", "%{count} files", count
     #     dgettext "errors", "is invalid"
     #
-    if count = opts[:count] do
-      Gettext.dngettext(Disk8Web.Gettext, "errors", msg, msg, count, opts)
-    else
-      Gettext.dgettext(Disk8Web.Gettext, "errors", msg, opts)
+    case opts[:count] do
+      nil ->
+        Gettext.dgettext(Disk8Web.Gettext, "errors", msg, opts)
+
+      count ->
+        Gettext.dngettext(Disk8Web.Gettext, "errors", msg, msg, count, opts)
     end
   end
 end

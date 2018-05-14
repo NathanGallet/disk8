@@ -2,20 +2,30 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Immutable from 'immutable';
-import * as chatActionCreators from '../actions/chat';
-
-import { MessageBoard, MessageComposer, UserList } from '../components'
-
+import * as actions from '../actions/chat';
+import { MessageBoard, MessageComposer, UserList } from '../components';
+import { Sock8 } from '../sockets';
+import { DEFAULT_CHANNEL } from '../utils/config';
 
 class ChatContainer extends Component {
+
+    componentDidMount() {
+        Sock8.createSocket()
+        Sock8.joinChannel(DEFAULT_CHANNEL)
+        Sock8.pushMessage("coucou")
+        Sock8._pushMessage(this.props.postMessage)
+    }
+
     render () {
         return (
             <div className="ChatContainer">
                 <div className="MessageBoard">
-                    <MessageBoard />
+                    <MessageBoard
+                        messages={this.props.message} />
                 </div>
                 <div className="MessageComposer">
-                    <MessageComposer />
+                    <MessageComposer
+                        sendMessage={this.props.postMessage} />
                 </div>
                 <div className="UserList">
                     <UserList />
@@ -25,18 +35,14 @@ class ChatContainer extends Component {
     }
 }
 
-// We can read values from the state thanks to mapStateToProps
-function mapStateToProps(state) {
+const mapStateToProps = state => {
     return {
-        informations: state.getIn(['informations', 'list'], Immutable.List()).toJS(),
-    }
+        message: state.getIn(['chat', 'message'], Immutable.List())
+    };
 }
 
-// We can dispatch actions to the reducer and sagas
-function mapDispatchToProps(dispatch) {
-    return {
-        chatActions: bindActionCreators(chatActionCreators, dispatch)
-    };
+const mapDispatchToProps = dispatch => {
+    return bindActionCreators(actions, dispatch)
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(ChatContainer);
