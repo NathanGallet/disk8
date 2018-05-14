@@ -22,14 +22,15 @@ class Disk8Sock8 {
             .receive("error", resp => { console.log("Unable to join", resp) })
     }
 
+    // TODO: need to change, json is send now
     pushMessage(message) {
-        this.channel.push("newMessage", message)
+        this.channel.push("message", message)
     }
 
     _pushMessage(callbackFunction) {
 
         // TODO: Change de payload, add informations of the user
-        this.channel.on("newMessage", payload => {
+        this.channel.on("message", payload => {
             console.log('New Message :', payload)
             callbackFunction(payload.content)
         })
