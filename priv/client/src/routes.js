@@ -1,7 +1,7 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import { configureStore, history } from './store';
-import { ChatContainer } from './containers';
+import { ChatContainer, LoginContainer } from './containers';
 
 import { ConnectedRouter } from 'react-router-redux';
 import { Route, Switch } from 'react-router-dom';
@@ -13,7 +13,8 @@ const routes = (
   <Provider store={store}>
       <ConnectedRouter history={history}>
           <Switch>
-              <Route path="/" component={ChatContainer} />
+              <Route exact path="/" component={ChatContainer} />
+              <Route path="/login" component={LoginContainer} />
           </Switch>
       </ConnectedRouter>
   </Provider>

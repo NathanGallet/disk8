@@ -6,14 +6,15 @@ import * as actions from '../actions/chat';
 import { MessageBoard, MessageComposer, UserList } from '../components';
 import { Sock8 } from '../sockets';
 import { DEFAULT_CHANNEL } from '../utils/config';
+import { Link } from 'react-router-dom';
 
 class ChatContainer extends Component {
 
     componentDidMount() {
-        Sock8.createSocket()
-        Sock8.joinChannel(DEFAULT_CHANNEL)
-        Sock8.pushMessage("coucou")
-        Sock8._pushMessage(this.props.postMessage)
+        /* Sock8.createSocket()
+         * Sock8.joinChannel(DEFAULT_CHANNEL)
+         * Sock8.pushMessage("coucou")
+         * Sock8._pushMessage(this.props.postMessage) */
     }
 
     render () {
@@ -30,6 +31,9 @@ class ChatContainer extends Component {
                 <div className="UserList">
                     <UserList />
                 </div>
+                <Link to="/login">
+                    Need an account?
+                </Link>
             </div>
         );
     }
