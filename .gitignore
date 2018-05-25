@@ -16,5 +16,6 @@ erl_crash.dump
 /config/*.secret.exs
 
 /priv/client/node_modules/
+/priv/client/yarn.lock
 /priv/static/js/bundle.js
 /doc/

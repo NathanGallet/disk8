@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Immutable from 'immutable';
+import { isEmpty } from 'lodash';
 
 class MessageComposer extends Component {
 
@@ -19,14 +20,14 @@ class MessageComposer extends Component {
 
     sendMessage(message, event) {
         // Don't dispatch anything if the message is empty
-        if (message == '') {
+        if (isEmpty(message)) {
             return;
         }
 
         // Prevent default, reset state and dispatch message
         event.preventDefault();
         this.props.sendMessage(Immutable.fromJS(message));
-        event.target.value = '';
+        event.target.value = ''; // TODO : FIX, don't clear value on enter pressed
         this.setState({message: ''});
     }
 
@@ -50,7 +51,7 @@ class MessageComposer extends Component {
                 <input
                     type        = "text"
                     placeholder = "Enter your message"
-                    onKeyPress  = {this.handleKeyPress.bind(this)}
+                    onKeyPress  = {this.handleKeyPress}
                     onChange    = {this.handleChange} />
 
                 <button onClick={this.handleSubmit}> Envoyer </button>
