@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { withStyles } from '@material-ui/core/styles';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+
 import * as actions from '../actions/authentification';
 
 class LoginContainer extends Component {
@@ -16,7 +19,7 @@ class LoginContainer extends Component {
     }
 
     submitForm() {
-        console.log(this.state.username)
+        this.props.login(this.state.username)
     }
 
     handleChange(event) {
@@ -32,12 +35,13 @@ class LoginContainer extends Component {
     }
 
     render () {
+        const { classes } = this.props
         return (
             <div>
                 <TextField
                     id           = "pseudo"
                     label        = "Pseudonym"
-                    className    = {this.props.classes.textField}
+                    className    = {classes.textField}
                     type         = "text"
                     autoComplete = "username"
                     margin       = "normal"
@@ -60,4 +64,15 @@ const styles = theme => ({
     },
 });
 
-export default withStyles(styles)(LoginContainer);
+const mapStateToProps = state => {
+    return {
+        id: state.authentification.id,
+        username: state.authentification.username
+    };
+}
+
+const mapDispatchToProps = dispatch => {
+    return bindActionCreators(actions, dispatch)
+}
+
+export default withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(LoginContainer));
