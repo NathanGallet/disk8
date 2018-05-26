@@ -7,12 +7,11 @@ class MessageBoard extends Component {
         return (
             <div>
                 {
-                    messages
-                        .map((message, i) => {
-                            return (
-                                <p key={i}> {message} </p>
-                            );
-                        })
+                    messages.map((message, i) => {
+                        return (
+                            <p key={i}> {message} </p>
+                        );
+                    })
                 }
             </div>
         );

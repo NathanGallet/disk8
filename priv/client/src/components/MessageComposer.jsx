@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import Immutable from 'immutable';
 import { isEmpty } from 'lodash';
 
 class MessageComposer extends Component {
@@ -26,7 +25,7 @@ class MessageComposer extends Component {
 
         // Prevent default, reset state and dispatch message
         event.preventDefault();
-        this.props.sendMessage(Immutable.fromJS(message));
+        this.props.sendMessage(message);
         event.target.value = ''; // TODO : FIX, don't clear value on enter pressed
         this.setState({message: ''});
     }

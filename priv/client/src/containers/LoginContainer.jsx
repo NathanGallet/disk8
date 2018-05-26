@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { withStyles } from '@material-ui/core/styles';
-import Immutable from 'immutable';
 import * as actions from '../actions/authentification';
 
 class LoginContainer extends Component {

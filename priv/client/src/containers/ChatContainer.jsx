@@ -38,7 +38,7 @@ class ChatContainer extends Component {
 
 const mapStateToProps = state => {
     return {
-        message: state.getIn(['chat', 'message'], Immutable.List())
+        message: state.chat.message
     };
 }
 
