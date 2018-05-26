@@ -31,9 +31,6 @@ class ChatContainer extends Component {
                 <div className="UserList">
                     <UserList />
                 </div>
-                <Link to="/login">
-                    Need an account?
-                </Link>
             </div>
         );
     }

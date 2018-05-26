@@ -1,31 +1,50 @@
 import React, { Component } from 'react';
 import Button from '@material-ui/core/Button';
-import Icon from '@material-ui/core/Icon';
+import TextField from '@material-ui/core/TextField';
 import { withStyles } from '@material-ui/core/styles';
+import Immutable from 'immutable';
+import * as actions from '../actions/authentification';
 
 class LoginContainer extends Component {
+    constructor (props) {
+        super();
+        this.state = {
+            username: ''
+        };
+        this.handleChange   = this.handleChange.bind(this);
+        this.submitForm     = this.submitForm.bind(this);
+        this.handleKeyPress = this.handleKeyPress.bind(this);
+    }
 
     submitForm() {
-        console.log('pseudo');
+        console.log(this.state.username)
     }
-    changePseudo() {
-        console.log('pseudo');
+
+    handleChange(event) {
+        this.setState({username: event.target.value});
+    }
+
+    handleKeyPress(event) {
+        if(event.key != 'Enter') {
+            return;
+        }
+
+        this.submitForm(this.state.username, event)
     }
 
     render () {
         return (
             <div>
-                <form onSubmit={this.submitForm()}>
-                    <input
-                        placeholder = "pseudo"
-                        type        = "text"
-                        onChange    = {this.changePseudo} />
-
-                    <Button className={this.props.classes.button} variant="raised" color="primary">
-                        Send
-                        <Icon className={this.props.classes.rightIcon}>send</Icon>
-                    </Button>
-                </form>
+                <TextField
+                    id           = "pseudo"
+                    label        = "Pseudonym"
+                    className    = {this.props.classes.textField}
+                    type         = "text"
+                    autoComplete = "username"
+                    margin       = "normal"
+                    onKeyPress  = {this.handleKeyPress}
+                    onChange    = {this.handleChange}
+                />
             </div>
         );
     }
@@ -35,9 +54,11 @@ const styles = theme => ({
     button: {
         margin: theme.spacing.unit,
     },
-    rightIcon: {
+    textField: {
         marginLeft: theme.spacing.unit,
-    }
+        marginRight: theme.spacing.unit,
+        width: 200,
+    },
 });
 
 export default withStyles(styles)(LoginContainer);

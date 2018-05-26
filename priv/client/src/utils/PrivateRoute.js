@@ -7,7 +7,7 @@ const PrivateRoute = ({ component: Component, ...othersProps }) => (
     <Route
         {...othersProps}
         render={props =>
-           !isNull(Auth.getToken()) ? (
+           isNull(Auth.getToken()) ? (
                 <Component {...props} />
             ) : (
                 <Redirect
