@@ -10,7 +10,7 @@ class RequestsManager {
     post(url, body) {
         return fetch(`${HTTP_API_URL}${url}`, {
             headers: new Headers({
-                'Accept': 'application/json'
+                'Content-Type': 'application/json',
             }),
             method: 'POST',
             body: JSON.stringify(body)
@@ -21,7 +21,7 @@ class RequestsManager {
     get(url) {
         return fetch(`${HTTP_API_URL}${url}`, {
             headers: new Headers({
-                'Accept': 'application/json'
+                'Content-Type': 'application/json',
             }),
             method: 'GET'
         })
@@ -31,7 +31,7 @@ class RequestsManager {
     put(url, body) {
         return fetch(`${HTTP_API_URL}${url}`, {
             headers: new Headers({
-                'Accept': 'application/json'
+                'Content-Type': 'application/json',
             }),
             method: 'PUT',
             body: JSON.stringify(body)
@@ -42,7 +42,7 @@ class RequestsManager {
     delete(url) {
         return fetch(`${HTTP_API_URL}${url}`, {
             headers: new Headers({
-                'Accept': 'application/json'
+                'Content-Type': 'application/json',
             }),
             method: 'DELETE'
         })

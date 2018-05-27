@@ -11,7 +11,9 @@ function login(username) {
     return {
         type: LOGIN,
         payload: {
-            username
+            user: {
+                name: username
+            }
         }
     };
 }

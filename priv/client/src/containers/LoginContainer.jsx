@@ -66,8 +66,8 @@ const styles = theme => ({
 
 const mapStateToProps = state => {
     return {
-        id: state.authentification.id,
-        username: state.authentification.username
+        userId: state.authentification.userId,
+        userName: state.authentification.userName
     };
 }
 

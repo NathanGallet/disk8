@@ -14,39 +14,35 @@ import Requests from '../utils/requests';
 class UserRequests {
     // Create user
     create(body) {
-        Requests
+        return Requests
             .post(`/users`, body)
             .then(
                 response => {
-                    if (response.status != 200) {
+                    if (response.status != 201) {
                         throw response;
                     }
                     return response.json();
-                },
-                error => {
-                    console.error('error: ', error);
-                    throw error;
                 });
     }
 
     // Get one user
     show(id) {
-        Requests.get(`/user/${id}`);
+        return Requests.get(`/user/${id}`);
     }
 
     // Update user
     update(id, body) {
-        Requests.put(`/user/${id}`, body);
+        return Requests.put(`/user/${id}`, body);
     }
 
     // Delete user
     delete(id) {
-        Requests.delete(`/user/${id}`);
+        return Requests.delete(`/user/${id}`);
     }
 
     // Get all users
     getAll() {
-        Requests.get(`/users`);
+        return Requests.get(`/users`);
     }
 
 }

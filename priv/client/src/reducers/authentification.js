@@ -1,20 +1,26 @@
 import { LOGIN, LOGIN_SUCCESS, LOGIN_FAIL } from '../constants/authentification';
 
 const initialState = {
-    id: null,
-    username: null
+    userId: null,
+    userName: null
 };
 
 export default (state = initialState, action) => {
     switch (action.type) {
         case LOGIN_SUCCESS: {
-            console.log(action.type)
-            return state;
+            return {
+                ...state,
+                userName: action.payload.name,
+                userId : action.payload.id
+            }
         }
 
-        case LOGIN_FAIL:
-            console.log(action.type)
-            return state;
+        case LOGIN_FAIL: {
+            return {
+                ...state,
+                error: action.payload.error
+            }
+        }
 
         default:
             return state;
