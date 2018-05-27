@@ -38,6 +38,7 @@ defmodule Disk8Web.Endpoint do
     key: "_disk8_key",
     signing_salt: "pnS03czD"
 
+  plug Corsica, origins: "http://localhost:8080"
   plug Disk8Web.Router
 
   @doc """

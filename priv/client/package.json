@@ -18,8 +18,7 @@
         "react-router-dom": "^4.2.2",
         "react-router-redux": "^5.0.0-alpha.9",
         "redux": "^4.0.0",
-        "superagent": "^3.8.3",
-        "superagent-promise": "^1.1.0"
+        "redux-saga": "^0.16.0"
     },
     "devDependencies": {
         "babel-core": "^6.26.3",

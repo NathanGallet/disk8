@@ -1,27 +1,32 @@
+import { UserRequests } from '../requests';
+
 import {
     LOGIN,
     LOGIN_SUCCESS,
     LOGIN_FAIL
 } from '../constants/authentification';
 
+
 function login(username) {
     return {
         type: LOGIN,
-        username
+        payload: {
+            username
+        }
     };
 }
 
 function loginSuccess(informationsUser) {
     return {
         type: LOGIN_SUCCESS,
-        informationsUser
+        payload: informationsUser
     };
 }
 
 function loginFailure(error) {
     return {
         type: LOGIN_FAILURE,
-        error
+        payload: error
     };
 }
 export {

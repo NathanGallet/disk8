@@ -45,8 +45,8 @@ class LoginContainer extends Component {
                     type         = "text"
                     autoComplete = "username"
                     margin       = "normal"
-                    onKeyPress  = {this.handleKeyPress}
-                    onChange    = {this.handleChange}
+                    onKeyPress   = {this.handleKeyPress}
+                    onChange     = {this.handleChange}
                 />
             </div>
         );
