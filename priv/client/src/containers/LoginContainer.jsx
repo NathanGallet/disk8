@@ -4,6 +4,7 @@ import TextField from '@material-ui/core/TextField';
 import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import Grid from '@material-ui/core/Grid';
 
 import * as actions from '../actions/authentification';
 
@@ -37,25 +38,32 @@ class LoginContainer extends Component {
     render () {
         const { classes } = this.props
         return (
-            <div>
-                <TextField
-                    id           = "pseudo"
-                    label        = "Pseudonym"
-                    className    = {classes.textField}
-                    type         = "text"
-                    autoComplete = "username"
-                    margin       = "normal"
-                    onKeyPress   = {this.handleKeyPress}
-                    onChange     = {this.handleChange}
-                />
-            </div>
+            <Grid
+                className  = {classes.container}
+                alignItems = 'center'
+                justify    = 'center'
+                spacing    = {16}
+                container >
+                <Grid item>
+                    <TextField
+                        id           = "pseudo"
+                        label        = "Pseudonym"
+                        className    = {classes.textField}
+                        type         = "text"
+                        autoComplete = "username"
+                        margin       = "normal"
+                        onKeyPress   = {this.handleKeyPress}
+                        onChange     = {this.handleChange}
+                    />
+                </Grid>
+            </Grid>
         );
     }
 }
 
 const styles = theme => ({
-    button: {
-        margin: theme.spacing.unit,
+    root: {
+        flexGrow: 1
     },
     textField: {
         marginLeft: theme.spacing.unit,

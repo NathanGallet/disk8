@@ -10,11 +10,14 @@ import * as actions from '../actions/chat';
 import { MessageBoard, MessageComposer, UserList } from '../components';
 import { Sock8 } from '../sockets';
 import { DEFAULT_CHANNEL } from '../utils/config';
+import Auth from '../utils/auth';
 
 // TODO: use grid to layout the chat properly
 class ChatContainer extends Component {
 
     componentDidMount() {
+        console.log('User Informations stored : ', Auth.getUserInfo('userInfo'))
+
         /* Sock8.createSocket()
          * Sock8.joinChannel(DEFAULT_CHANNEL)
          * Sock8.pushMessage("coucou")
@@ -25,26 +28,31 @@ class ChatContainer extends Component {
         const { classes, message, postMessage } = this.props;
 
         return (
-            <div className={classes.chat}>
-                <Grid container spacing={24}>
-                    <Grid item xs={12}>
-                        <MessageBoard
-                            messages={message} />
-                    </Grid>
+            <Grid container spacing={16}>
+                <Grid item xs={4}>
+                    <UserList />
                 </Grid>
-                <Grid item xs={12}>
+
+                <Grid item xs={8}>
+                    <MessageBoard
+                        messages={message} />
                     <MessageComposer
                         sendMessage={postMessage} />
                 </Grid>
-                <Grid item xs={12}>
-                    <UserList />
-                </Grid>
-            </div>
+            </Grid>
         );
     }
 }
 
 const styles = theme => ({
+    chatContainer: {
+        display: 'flex',
+        flexDirection: 'row'
+    },
+    messageContainer: {
+        display: 'flex',
+        flexDirection: 'column '
+    }
 });
 
 const mapStateToProps = state => {

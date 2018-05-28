@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
 import { isEmpty } from 'lodash';
+import TextField from '@material-ui/core/TextField';
+import { withStyles } from '@material-ui/core/styles';
+import Button from '@material-ui/core/Button';
+import AddIcon from '@material-ui/icons/Add';
 
 class MessageComposer extends Component {
 
@@ -45,18 +49,45 @@ class MessageComposer extends Component {
 
     render () {
 
-        return (
-            <div className="container">
-                <input
-                    type        = "text"
-                    placeholder = "Enter your message"
-                    onKeyPress  = {this.handleKeyPress}
-                    onChange    = {this.handleChange} />
+        const { classes } = this.props;
 
-                <button onClick={this.handleSubmit}> Envoyer </button>
+        return (
+            <div className={classes.container}>
+                <TextField
+                    label      = "Press enter to send message"
+                    margin     = "normal"
+                    onKeyPress = {this.handleKeyPress}
+                    onChange   = {this.handleChange}
+                    className  = {classes.composer}
+                    fullWidth
+                />
+
+                <Button
+                    variant    = "fab"
+                    color      = "primary"
+                    aria-label = "add"
+                    className  = {classes.button}
+                    onClick    = {this.handleSubmit} >
+
+                    <AddIcon />
+                </Button>
             </div>
         );
     }
 }
+const styles = theme => ({
+    container: {
+        display: 'flex',
+        flexDirection: 'row',
+        width: '65%',
+        position: 'absolute',
+        bottom: '20px'
+    },
 
-export default MessageComposer;
+    button: {
+        margin: theme.spacing.unit
+    }
+});
+
+
+export default withStyles(styles)(MessageComposer);

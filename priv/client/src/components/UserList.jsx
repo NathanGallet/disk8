@@ -1,4 +1,12 @@
 import React, { Component } from 'react';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemSecondaryAction from '@material-ui/core/ListItemSecondaryAction';
+import ListItemText from '@material-ui/core/ListItemText';
+import Avatar from '@material-ui/core/Avatar';
+import IconButton from '@material-ui/core/IconButton';
+import CommentIcon from '@material-ui/icons/Comment';
+import { withStyles } from '@material-ui/core/styles';
 
 class UserList extends Component {
 
@@ -15,14 +23,34 @@ class UserList extends Component {
     }
 
     render () {
+        const { classes } = this.props;
+
         return (
-            <ul>
-                {this.state.users.map( user => (
-                    <li key={user.key}>{user.name}</li>
-                ))}
-            </ul>
+            <List className={classes.root}>
+            {this.state.users.map( user => (
+                <ListItem key={user.key} dense button className={classes.listItem}>
+                    <ListItemText primary={`${user.name}`} />
+                    <ListItemSecondaryAction>
+                        <IconButton aria-label="Comments">
+                            <CommentIcon />
+                        </IconButton>
+                    </ListItemSecondaryAction>
+                </ListItem>
+            ))}
+            </List>
         );
     }
 }
 
-export default UserList;
+const styles = theme => ({
+    button: {
+        margin: theme.spacing.unit,
+    },
+    root: {
+        width: '100%',
+        maxWidth: 360,
+        backgroundColor: theme.palette.background.paper,
+    }
+});
+
+export default withStyles(styles)(UserList);
