@@ -8,20 +8,27 @@ import Grid from '@material-ui/core/Grid';
 
 import * as actions from '../actions/chat';
 import { MessageBoard, MessageComposer, UserList } from '../components';
-import { Sock8 } from '../sockets';
+import Sock8 from '../sockets/socket';
 import { DEFAULT_CHANNEL } from '../utils/config';
 import Auth from '../utils/auth';
 
 // TODO: use grid to layout the chat properly
 class ChatContainer extends Component {
+    constructor (props) {
+        super();
+        this.state = { userInfo: null };
+    }
+
 
     componentDidMount() {
-        console.log('User Informations stored : ', Auth.getUserInfo('userInfo'))
+        let userId = this.state.userId = Auth.getUserInfo('userInfo').id;
+        let userName = this.state.userName = Auth.getUserInfo('userInfo').name;
 
-        /* Sock8.createSocket()
-         * Sock8.joinChannel(DEFAULT_CHANNEL)
-         * Sock8.pushMessage("coucou")
-         * Sock8._pushMessage(this.props.postMessage) */
+        Sock8.createSocket();
+        Sock8.joinChannel(DEFAULT_CHANNEL);
+        Sock8.pushMessage("coucou", userId);
+        // TODO: change postMessage !
+        Sock8._pushMessage(this.props.postMessage)
     }
 
     render () {

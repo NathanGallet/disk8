@@ -22,9 +22,13 @@ class Disk8Sock8 {
             .receive("error", resp => { console.log("Unable to join", resp) })
     }
 
-    // TODO: need to change, json is send now
-    pushMessage(message) {
-        this.channel.push("message", message)
+    pushMessage(message, id) {
+        let parameters = {
+            id,
+            message
+        }
+
+        this.channel.push("message", parameters);
     }
 
     _pushMessage(callbackFunction) {
@@ -37,4 +41,4 @@ class Disk8Sock8 {
     }
 }
 
-export const Sock8 = new Disk8Sock8(WS_API_URL)
+export default new Disk8Sock8(WS_API_URL)
