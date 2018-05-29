@@ -31,12 +31,10 @@ class Disk8Sock8 {
         this.channel.push("message", parameters);
     }
 
-    _pushMessage(callbackFunction) {
-
-        // TODO: Change de payload, add informations of the user
+    onMessagePushed(callbackFunction) {
         this.channel.on("message", payload => {
             console.log('New Message :', payload)
-            callbackFunction(payload.content)
+            callbackFunction(payload.message)
         })
     }
 }

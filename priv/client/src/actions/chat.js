@@ -1,12 +1,24 @@
+import Sock8 from '../sockets/socket';
 import {
+    DISPLAY_MESSAGE,
     POST_MESSAGE,
 } from '../constants/chat';
 
-function postMessage(message) {
+function displayMessage(message) {
     return {
-        type: POST_MESSAGE,
+        type: DISPLAY_MESSAGE,
         message
     };
 }
 
-export { postMessage };
+function postMessage(message, id) {
+    return {
+        type: POST_MESSAGE,
+        payload: Sock8.pushMessage(message, id)
+    }
+}
+
+export {
+    displayMessage,
+    postMessage
+};

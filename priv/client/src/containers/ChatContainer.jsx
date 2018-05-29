@@ -21,14 +21,14 @@ class ChatContainer extends Component {
 
 
     componentDidMount() {
-        let userId = this.state.userId = Auth.getUserInfo('userInfo').id;
+        let userId   = this.state.userId   = Auth.getUserInfo('userInfo').id;
         let userName = this.state.userName = Auth.getUserInfo('userInfo').name;
 
         Sock8.createSocket();
         Sock8.joinChannel(DEFAULT_CHANNEL);
-        Sock8.pushMessage("coucou", userId);
-        // TODO: change postMessage !
-        Sock8._pushMessage(this.props.postMessage)
+
+        Sock8.onMessagePushed(this.props.displayMessage)
+        this.props.postMessage('test', userId)
     }
 
     render () {
@@ -44,7 +44,7 @@ class ChatContainer extends Component {
                     <MessageBoard
                         messages={message} />
                     <MessageComposer
-                        sendMessage={postMessage} />
+                        sendMessage={(message) => postMessage(message, this.state.userId)} />
                 </Grid>
             </Grid>
         );
