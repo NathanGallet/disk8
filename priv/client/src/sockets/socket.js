@@ -28,13 +28,12 @@ class Disk8Sock8 {
             message
         }
 
-        this.channel.push("message", parameters);
+        return this.channel.push("message", parameters);
     }
 
     onMessagePushed(callbackFunction) {
         this.channel.on("message", payload => {
-            console.log('New Message :', payload)
-            callbackFunction(payload.message)
+            callbackFunction(payload.message, payload.user)
         })
     }
 }

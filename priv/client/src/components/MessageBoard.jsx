@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
+import { withStyles } from '@material-ui/core/styles';
 
 class MessageBoard extends Component {
 
     render () {
-        const { messages } = this.props;
+        const { messagesInformations, classes } = this.props;
         return (
             <div>
                 {
-                    messages.map((message, i) => {
+                    messagesInformations.map((informations, index) => {
                         return (
-                            <p key={i}> {message} </p>
+                            <p key={index}> {informations.author}: {informations.message} </p>
                         );
                     })
                 }
@@ -18,4 +19,14 @@ class MessageBoard extends Component {
     }
 }
 
-export default MessageBoard;
+const styles = theme => ({
+    talkBubble: {
+        color: 'blue'
+    },
+
+    triRight: {
+        backgroundColor: 'red'
+    }
+});
+
+export default withStyles(styles)(MessageBoard);

@@ -5,24 +5,24 @@ import {
 import { concat } from 'lodash';
 
 const initialState = {
-    message: ['']
+    messagesInformations: []
 };
 
 export default (state = initialState, action) => {
     switch (action.type) {
         case DISPLAY_MESSAGE: {
+            // all the informations about the message
+            let informations = {
+                author: action.author,
+                message: action.message
+            }
             return {
                 ...state,
-                message: concat(state.message, action.message)
-
+                messagesInformations: concat(state.messagesInformations, informations)
             }
         }
         case POST_MESSAGE: {
-            console.log('state: ', state);
-            console.log('action: ', action);
-            return {
-                ...state,
-            }
+            return state;
         }
 
         default:

@@ -21,18 +21,20 @@ class ChatContainer extends Component {
 
 
     componentDidMount() {
+        // Get user info in the local storage
         let userId   = this.state.userId   = Auth.getUserInfo('userInfo').id;
         let userName = this.state.userName = Auth.getUserInfo('userInfo').name;
 
+        // Create connexion socket and join default channel
         Sock8.createSocket();
         Sock8.joinChannel(DEFAULT_CHANNEL);
 
+        // Every message including message sent by the user will be received and display by this function
         Sock8.onMessagePushed(this.props.displayMessage)
-        this.props.postMessage('test', userId)
     }
 
     render () {
-        const { classes, message, postMessage } = this.props;
+        const { classes, messagesInformations, postMessage } = this.props;
 
         return (
             <Grid container spacing={16}>
@@ -42,29 +44,22 @@ class ChatContainer extends Component {
 
                 <Grid item xs={8}>
                     <MessageBoard
-                        messages={message} />
+                        messagesInformations={messagesInformations} />
                     <MessageComposer
                         sendMessage={(message) => postMessage(message, this.state.userId)} />
                 </Grid>
             </Grid>
-        );
+        )
     }
 }
 
+// Useless but probably need it to layout properly components
 const styles = theme => ({
-    chatContainer: {
-        display: 'flex',
-        flexDirection: 'row'
-    },
-    messageContainer: {
-        display: 'flex',
-        flexDirection: 'column '
-    }
 });
 
 const mapStateToProps = state => {
     return {
-        message: state.chat.message
+        messagesInformations: state.chat.messagesInformations
     };
 }
 

@@ -4,10 +4,11 @@ import {
     POST_MESSAGE,
 } from '../constants/chat';
 
-function displayMessage(message) {
+function displayMessage(message, author) {
     return {
         type: DISPLAY_MESSAGE,
-        message
+        message,
+        author
     };
 }
 
