@@ -1,5 +1,5 @@
-import { Socket } from "phoenix"
-import { WS_API_URL } from '../utils/config'
+import { Socket } from "phoenix";
+import { WS_API_URL } from '../utils/config';
 
 class Disk8Sock8 {
 

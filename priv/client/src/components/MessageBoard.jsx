@@ -10,7 +10,9 @@ class MessageBoard extends Component {
                 {
                     messagesInformations.map((informations, index) => {
                         return (
-                            <p key={index}> {informations.author}: {informations.message} </p>
+                            <div key={index}>
+                                <p key={index}> {informations.author}: {informations.message} </p>
+                            </div>
                         );
                     })
                 }
@@ -20,13 +22,6 @@ class MessageBoard extends Component {
 }
 
 const styles = theme => ({
-    talkBubble: {
-        color: 'blue'
-    },
-
-    triRight: {
-        backgroundColor: 'red'
-    }
 });
 
 export default withStyles(styles)(MessageBoard);
