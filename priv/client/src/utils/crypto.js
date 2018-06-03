@@ -1,43 +1,32 @@
-import nodeRSA from 'node-rsa';
-import nodeAES from 'crypto-js';
-import randomAES from 'crypto';
+import Crypto from 'node-forge';
+import { isNull } from 'lodash';
 
-import { SIZE_AES } from './config';
+import Auth from '../utils/auth';
+import { keyPairCreated } from '../actions/authentification';
 
 class CryptedDisk8 {
 
-    generateRSAKeyPair(size) {
-        let key = new nodeRSA();
+    // Generate an RSA key pair asynchronously, uses web workers
+    // -1 to run a fast core estimator to optimize number of workers
+    generateKeys() {
+        return new Promise((resolve, reject) => {
+            Crypto.pki.rsa.generateKeyPair({bits: 2048, workers: -1}, (err, keypair) => {
 
-        return key.generateKeyPair(size, 65537);
-    }
+                if (!isNull(err)) {
+                    reject(err);
+                }
 
-    generateRSAPublicKey(generatedKeyPair) {
-        return generatedKeyPair.exportKey('components-public');
-    }
+                let privateKey = keypair.privateKey;
+                let publicKey  = keypair.publicKey;
 
-    generateAESKey() {
-        return randomAES.randomBytes(SIZE_AES).toString('base64');
-    }
+                let keys = {
+                    privateKey,
+                    publicKey
+                };
 
-    encryptAES(AESKey, RSAPubKey) {
-        let publicKey = new nodeRSA();
-        publicKey.importKey(RSAPubKey);
-
-        return publicKey.encrypt(AESKey, 'base64');
-    }
-
-    decryptAES(AESCypher, RSAPrivKey) {
-        return RSAPrivKey.decrypt(AESCypher, 'utf8');
-    }
-
-    encryptMessage(message, key) {
-        return nodeAES.AES.encrypt(message, key).toString();
-    }
-
-    decryptMessage(message, key) {
-        let decrypted = nodeAES.AES.decrypt(message.toString(), key);
-        return decrypted.toString(nodeAES.enc.Utf8);
+                resolve(keys);
+            })
+        })
     }
 }
 

@@ -3,7 +3,8 @@ import { UserRequests } from '../requests';
 import {
     LOGIN,
     LOGIN_SUCCESS,
-    LOGIN_FAIL
+    LOGIN_FAIL,
+    KEY_PAIR_CREATED
 } from '../constants/authentification';
 
 
@@ -11,9 +12,7 @@ function login(username) {
     return {
         type: LOGIN,
         payload: {
-            user: {
-                name: username
-            }
+            username
         }
     };
 }
@@ -31,8 +30,20 @@ function loginFailure(error) {
         payload: error
     };
 }
+
+function keyPairCreated(privateKey, publicKey) {
+    return {
+        type: KEY_PAIR_CREATED,
+        payload: {
+            privateKey,
+            publicKey
+        }
+    }
+}
+
 export {
     login,
     loginSuccess,
-    loginFailure
+    loginFailure,
+    keyPairCreated
 };

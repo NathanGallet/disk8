@@ -14,17 +14,8 @@ import Auth from '../utils/auth';
 
 // TODO: use grid to layout the chat properly
 class ChatContainer extends Component {
-    constructor (props) {
-        super();
-        this.state = { userInfo: null };
-    }
-
 
     componentDidMount() {
-        // Get user info in the local storage
-        let userId   = this.state.userId   = Auth.getUserInfo('userInfo').id;
-        let userName = this.state.userName = Auth.getUserInfo('userInfo').name;
-
         // Create connexion socket and join default channel
         Sock8.createSocket();
         Sock8.joinChannel(DEFAULT_CHANNEL);
@@ -34,7 +25,7 @@ class ChatContainer extends Component {
     }
 
     render () {
-        const { classes, messagesInformations, postMessage } = this.props;
+        const { classes, messagesInformations, postMessage, userId } = this.props;
 
         return (
             <Grid container spacing={16}>
@@ -46,7 +37,7 @@ class ChatContainer extends Component {
                     <MessageBoard
                         messagesInformations={messagesInformations} />
                     <MessageComposer
-                        sendMessage={(message) => postMessage(message, this.state.userId)} />
+                        sendMessage={(message) => postMessage(message, userId)} />
                 </Grid>
             </Grid>
         )
@@ -59,7 +50,9 @@ const styles = theme => ({
 
 const mapStateToProps = state => {
     return {
-        messagesInformations: state.chat.messagesInformations
+        messagesInformations : state.chat.messagesInformations,
+        userId               : state.authentification.userId,
+        userName             : state.authentification.userName
     };
 }
 

@@ -80,4 +80,4 @@ class Auth {
 
 };
 
-export default Auth = new Auth();
+export default new Auth();
