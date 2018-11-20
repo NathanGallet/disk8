@@ -25,6 +25,7 @@ defmodule Disk8Web.ChannelCase do
     end
   end
 
+	#Ceci est un commentaire
 
   setup tags do
     :ok = Ecto.Adapters.SQL.Sandbox.checkout(Disk8.Repo)
