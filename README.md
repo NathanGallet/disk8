@@ -1,7 +1,8 @@
 # Disk8
 
 #### Requirements
-  * A postgresql database with user 
+  * A postgresql database with user
+  * Elixir and Phoenix
   * Browser extensions [Redux DevTools](https://github.com/zalmoxisus/redux-devtools-extension) and [React DevTools](https://reactjs.org/blog/2015/09/02/new-react-developer-tools.html#installation)
 
 
