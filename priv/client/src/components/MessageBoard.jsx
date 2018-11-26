@@ -11,7 +11,7 @@ class MessageBoard extends Component {
                     messagesInformations.map((informations, index) => {
                         return (
                             <div key={index}>
-                                <p key={index}> {informations.author}: {informations.message} </p>
+                                <p key={index}> <i>{informations.author}:</i> {informations.message} </p>
                             </div>
                         );
                     })

@@ -53,6 +53,7 @@ class MessageComposer extends Component {
 
         return (
             <div className={classes.container}>
+
                 <TextField
                     label      = "Press enter to send message"
                     margin     = "normal"
@@ -63,13 +64,13 @@ class MessageComposer extends Component {
                 />
 
                 <Button
-                    variant    = "fab"
+                    variant    = "text"
                     color      = "primary"
                     aria-label = "add"
                     className  = {classes.button}
                     onClick    = {this.handleSubmit} >
 
-                    <AddIcon />
+                    Send
                 </Button>
             </div>
         );
