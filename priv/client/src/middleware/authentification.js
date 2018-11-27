@@ -22,7 +22,7 @@ function* createUser(action) {
         // parameters
         let parameters = {
             user: {
-                name: action.payload.username
+                name: action.username
             }
         };
 

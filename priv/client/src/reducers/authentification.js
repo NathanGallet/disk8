@@ -1,4 +1,4 @@
-import { KEY_PAIR_CREATED, LOGIN_SUCCESS, LOGIN_FAIL } from '../constants/authentification';
+import { KEY_PAIR_CREATED, LOGIN_SUCCESS, LOGIN_FAIL, LOGIN } from '../constants/authentification';
 import Auth from '../utils/auth';
 import { isNull } from 'lodash';
 

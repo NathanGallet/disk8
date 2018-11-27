@@ -3,7 +3,7 @@ import { isEmpty } from 'lodash';
 import TextField from '@material-ui/core/TextField';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import AddIcon from '@material-ui/icons/Add';
+import SendIcon from '@material-ui/icons/Send';
 
 class MessageComposer extends Component {
 
@@ -70,7 +70,7 @@ class MessageComposer extends Component {
                     className  = {classes.button}
                     onClick    = {this.handleSubmit} >
 
-                    <AddIcon />
+                    <SendIcon />
                 </Button>
             </div>
         );

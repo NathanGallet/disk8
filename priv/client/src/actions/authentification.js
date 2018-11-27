@@ -11,9 +11,7 @@ import {
 function login(username) {
     return {
         type: LOGIN,
-        payload: {
-            username
-        }
+        username
     };
 }
 
