@@ -64,13 +64,13 @@ class MessageComposer extends Component {
                 />
 
                 <Button
-                    variant    = "text"
+                    variant    = "fab"
                     color      = "primary"
                     aria-label = "add"
                     className  = {classes.button}
                     onClick    = {this.handleSubmit} >
 
-                    Send
+                    <AddIcon />
                 </Button>
             </div>
         );
