@@ -18,5 +18,6 @@ defmodule Disk8.Accounts.User do
     user
     |> cast(attrs, [:name])
     |> validate_required([:name])
+    |> unique_constraint(:name)
   end
 end
