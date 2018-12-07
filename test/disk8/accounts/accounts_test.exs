@@ -7,7 +7,11 @@ defmodule Disk8.AccountsTest do
     alias Disk8.Accounts.User
 
     # Customs attributes
-    @valid_attrs %{name: "Name"}
+    @valid_attrs %{
+      name: "Name",
+      password: "iopiop",
+      public_key: "AAAAB3NzaC1yc2EAAAADAQABAAABAQDb0kO0jaJB1f0xqYZH4ifd2QUc54Q9KcvPHWxVf4sj3Yy6lc8cT9Qsml/9PrBO2laU+siypX5UiOlg2vIFTJ9xnDDfVnNBFsm5CIHX1MKC8veoYjMEELs3WzirsXMAFpyLpIhN+wLNAFs5BvSrnmT5AaWMVjqSgZwkLOOJ8PzQ+kII368eV7B+yYzIazoph10lQbW72yjY630hwllmSfZr2v1tZACoZkqwd1VnsXuCMInIvNuEaY4B6VAF12l1xLc3WO27ZHpVACIIURbg0EFWGzDocFFQjw8+MSYXKjYdhObq3piDA8pbs6Ev0fLxzwWg7ukBEDKAsknLLRn3NEqn",
+      private_key: "bRg0TgdfeIB9dKoclkiV7ZgLIVO2JDCf7+UsPDav6ak="}
     @update_attrs %{name: "Updated Name"}
     @invalid_attrs %{name: nil}
 

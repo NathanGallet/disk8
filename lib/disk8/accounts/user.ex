@@ -1,23 +1,26 @@
 defmodule Disk8.Accounts.User do
   @moduledoc """
-  Descriptions of the uers table
+  User model
 
   """
   use Ecto.Schema
   import Ecto.Changeset
 
+  @required_fields ~w(name password public_key private_key)a
 
   schema "users" do
     field :name, :string
+    field(:password, :string)
+    field(:public_key, :string)
+    field(:private_key, :string)
 
     timestamps()
   end
 
-  @doc false
   def changeset(user, attrs) do
     user
-    |> cast(attrs, [:name])
-    |> validate_required([:name])
+    |> cast(attrs, @required_fields)
+    |> validate_required(@required_fields)
     |> unique_constraint(:name)
   end
 end

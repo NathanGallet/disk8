@@ -6,17 +6,28 @@ defmodule Disk8Web.UserController do
 
   action_fallback Disk8Web.FallbackController
 
+  plug(Guardian.Plug.EnsureAuthenticated when action in [:show, :update, :delete, :index])
+
   def index(conn, _params) do
     users = Accounts.list_users()
     render(conn, "index.json", users: users)
   end
 
   def create(conn, %{"user" => user_params}) do
-    with {:ok, %User{} = user} <- Accounts.create_user(user_params) do
-      conn
-      |> put_status(:created)
-      |> put_resp_header("location", user_path(conn, :show, user))
-      |> render("show.json", user: user)
+    case Accounts.create_user(user_params) do
+      {:ok, user} ->
+        # Generate jwt informations
+        {:ok, jwt, _jwt_informations} =
+          user
+          |> Disk8Web.Guardian.encode_and_sign(%{}, token_type: :token)
+
+        # Return status and informations
+        conn
+        |> put_status(:created)
+        |> render("show.json", user: user, jwt: jwt)
+
+      {:error, changeset} ->
+        render(conn, Disk8Web.ChangesetView, "error.json", changeset: changeset)
     end
   end
 

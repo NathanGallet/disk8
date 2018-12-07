@@ -22,6 +22,15 @@ config :logger, :console,
   format: "$time $metadata[$level] $message\n",
   metadata: [:request_id]
 
+# Configuration for Guardian
+config :disk8, Disk8Web.Guardian,
+  issuer: "Disk8",
+  secret_key: "IvCK5zSyNt9jaGKm1Yi+PaeXxx4lSxXZ0TVs+HMUUb8sog1iBxpBhM+XeWWCwPmn",
+  allowed_algos: ["HS256"],
+  ttl: {30, :days},
+  allowed_drift: 2000,
+  verify_issuer: true
+
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
 import_config "#{Mix.env}.exs"

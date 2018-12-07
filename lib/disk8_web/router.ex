@@ -4,6 +4,13 @@ defmodule Disk8Web.Router do
   pipeline :api do
     plug :accepts, ["json"]
     plug(ProperCase.Plug.SnakeCaseParams)
+    plug(
+      Guardian.Plug.Pipeline,
+      error_handler: Disk8Web.SessionController,
+      module: Disk8Web.Guardian
+    )
+    plug(Guardian.Plug.VerifyHeader, realm: "Token")
+    plug(Guardian.Plug.LoadResource, allow_blank: true)
   end
 
   # Serve bundle file
@@ -15,11 +22,8 @@ defmodule Disk8Web.Router do
   scope "/api", Disk8Web do
     pipe_through :api
 
-    # Users routes
-    post("/users", UserController, :create) # Create user
-    get("/user/:id", UserController, :show) # Display one user
-    put("/user/:id", UserController, :update) # Update one user
-    delete("/user/:id", UserController, :delete) # Delete one user
-    get("/users", UserController, :index) # Get all users
+    resources("/user", UserController, except: [:new, :edit]) # User management
+    post("/user/login", SessionController, :create) # Generate token
+
   end
 end
