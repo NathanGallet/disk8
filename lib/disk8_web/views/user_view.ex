@@ -14,6 +14,10 @@ defmodule Disk8Web.UserView do
     %{user: render_one(user, UserView, "user.json")}
   end
 
+  def render("login.json", %{jwt: jwt, user: user}) do
+    %{user: Map.merge(render_one(user, UserView, "user.json"), %{token: jwt})}
+  end
+
   def render("error.json", %{message: message}) do
     %{error: message}
   end

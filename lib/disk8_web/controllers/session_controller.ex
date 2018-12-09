@@ -12,13 +12,16 @@ defmodule Disk8Web.SessionController do
           user |> Disk8Web.Guardian.encode_and_sign(%{}, token_type: :token)
         conn
         |> put_status(:created)
-        |> render(Disk8Web.UserView, "login.json", jwt: jwt, user: user)
+        |> render(Disk8Web.UserView, "show.json", jwt: jwt, user: user)
 
       {:error, message} ->
         conn
         |> put_status(401)
         |> render(Disk8Web.UserView, "error.json", message: message)
     end
+  end
+
+  def delete(conn, params) do
   end
 
   def auth_error(conn, {_type, _reason}, _opts) do

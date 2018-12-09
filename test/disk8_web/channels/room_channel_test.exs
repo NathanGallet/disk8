@@ -17,20 +17,20 @@ defmodule Disk8Web.RoomChannelTest do
     {:ok, socket: socket}
   end
 
-  test "new user connection to room:lobby", %{socket: socket} do
-    {:ok, first_user} = Accounts.create_user(@first_user)
-    push(socket, "new_user", %{id: first_user.id})
-    assert_broadcast("new_user", %{user: "Zios"})
-  end
+  # test "new user connection to room:lobby", %{socket: socket} do
+  #   {:ok, first_user} = Accounts.create_user(@first_user)
+  #   push(socket, "new_user", %{id: first_user.id})
+  #   assert_broadcast("new_user", %{user: "Zios"})
+  # end
 
-  test "message is broadcasted to client", %{socket: socket} do
-    {:ok, first_user} = Accounts.create_user(@first_user)
-    {:ok, second_user} = Accounts.create_user(@second_user)
+  # test "message is broadcasted to client", %{socket: socket} do
+  #   {:ok, first_user} = Accounts.create_user(@first_user)
+  #   {:ok, second_user} = Accounts.create_user(@second_user)
 
-    push(socket, "message", %{id: first_user.id, message: @first_message})
-    push(socket, "message", %{id: second_user.id, message: @second_message})
+  #   push(socket, "message", %{id: first_user.id, message: @first_message})
+  #   push(socket, "message", %{id: second_user.id, message: @second_message})
 
-    assert_broadcast("message", %{user: "Zios", message: @first_message})
-    assert_broadcast("message", %{user: "Thibz", message: @second_message})
-  end
+  #   assert_broadcast("message", %{user: "Zios", message: @first_message})
+  #   assert_broadcast("message", %{user: "Thibz", message: @second_message})
+  # end
 end

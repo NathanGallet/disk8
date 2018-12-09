@@ -17,3 +17,6 @@ config :disk8, Disk8.Repo,
   database: "disk8_test",
   hostname: "localhost",
   pool: Ecto.Adapters.SQL.Sandbox
+
+# Reduce the number of rounds so it does not slow down tests
+config :bcrypt_elixir, log_rounds: 4

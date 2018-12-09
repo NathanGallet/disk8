@@ -24,6 +24,6 @@ defmodule Disk8Web.Router do
 
     resources("/user", UserController, except: [:new, :edit]) # User management
     post("/user/login", SessionController, :create) # Generate token
-
+    delete("/user/logout", SessionController, :delete) # Delete token
   end
 end
