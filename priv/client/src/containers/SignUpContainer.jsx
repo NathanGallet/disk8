@@ -13,7 +13,8 @@ import * as actions from '../actions/authentification';
 // For generating RSA keypair
 var openpgp = require('openpgp')
 
-class LoginContainer extends Component {
+class SignUpContainer extends Component {
+
     constructor (props) {
         super();
         this.state = {
@@ -29,14 +30,10 @@ class LoginContainer extends Component {
         this.handleChangePseudo   = this.handleChangePseudo.bind(this);
         this.handleChangePw1   = this.handleChangePw1.bind(this);
         this.handleChangePw2   = this.handleChangePw2.bind(this);
-        this.submitForm     = this.submitForm.bind(this);
         this.handleKeyPress = this.handleKeyPress.bind(this);
         this.handleButtonPressed = this.handleButtonPressed.bind(this);
     }
 
-    submitForm() {
-        this.props.login(this.state.username)
-    }
 
     handleChangePseudo(event) {
         this.setState({username: event.target.value});
@@ -66,7 +63,6 @@ class LoginContainer extends Component {
         if(event.key != 'Enter') {
             return;
         }
-
         this.submitForm(this.state.username, event)
     }
 
@@ -94,9 +90,8 @@ class LoginContainer extends Component {
             }.bind(this));
         }
         else if (this.state.keyGenerationStatus == 2 ){ // Keys are generated, we need to submit to the server
-
-            // TODO: Publish all this to the server !
-
+            console.log("submit form !");
+            this.props.signup(this.state);
         }
 
 }
@@ -204,4 +199,4 @@ const mapDispatchToProps = dispatch => {
     return bindActionCreators(actions, dispatch)
 }
 
-export default withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(LoginContainer));
+export default withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(SignUpContainer));

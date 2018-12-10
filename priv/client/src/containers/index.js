@@ -1,7 +1,7 @@
 import ChatContainer from './ChatContainer.jsx';
-import LoginContainer from './LoginContainer.jsx';
+import SignUpContainer from './SignUpContainer.jsx';
 
 export {
     ChatContainer,
-    LoginContainer
+    SignUpContainer
 };

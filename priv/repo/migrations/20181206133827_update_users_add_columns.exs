@@ -5,7 +5,7 @@ defmodule Disk8.Repo.Migrations.UpdateUsersAddColumns do
     alter table(:users) do
       add :password, :string
       add :public_key, :text
-      add :private_key, :string
+      add :private_key, :text
     end
   end
 end

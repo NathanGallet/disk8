@@ -15,7 +15,7 @@ class UserRequests {
     // Create user
     create(body) {
         return Requests
-            .post(`/users`, body)
+            .post(`/user`, body)
             .then(
                 response => {
                     if (response.status != 201) {

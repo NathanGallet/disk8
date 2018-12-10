@@ -1,11 +1,20 @@
 import { UserRequests } from '../requests';
 
 import {
+    SIGNUP,
     LOGIN,
     LOGIN_SUCCESS,
     LOGIN_FAIL,
     KEY_PAIR_CREATED
 } from '../constants/authentification';
+
+
+function signup(informationsUser) {
+    return {
+        type: SIGNUP,
+        payload: informationsUser
+    };
+}
 
 
 function login(username) {
@@ -40,6 +49,7 @@ function keyPairCreated(privateKey, publicKey) {
 }
 
 export {
+    signup,
     login,
     loginSuccess,
     loginFailure,
