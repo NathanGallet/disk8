@@ -1,3 +1,4 @@
 -/deps
 -/lib/priv/client/node_modules
-/_build
+-/_build
+-/priv/static/js/bundle.js
