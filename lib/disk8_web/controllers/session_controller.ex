@@ -21,9 +21,6 @@ defmodule Disk8Web.SessionController do
     end
   end
 
-  def delete(conn, params) do
-  end
-
   def auth_error(conn, {_type, _reason}, _opts) do
     conn
     |> put_status(:forbidden)

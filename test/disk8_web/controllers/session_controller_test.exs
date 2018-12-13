@@ -43,8 +43,7 @@ defmodule Disk8Web.SessionControllerTest do
     assert json_response(conn, 401)
   end
 
-  test "delete token", %{conn: conn} do
-    fixture(:user)
-
-  end
+  # test "delete token", %{conn: conn} do
+  #   fixture(:user)
+  # end
 end

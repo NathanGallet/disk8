@@ -1,5 +1,6 @@
 defmodule Disk8Web.UserSocket do
   use Phoenix.Socket
+  import Guardian.Phoenix.Socket
 
   ## Channels
   channel "room:*", Disk8Web.RoomChannel
@@ -19,8 +20,11 @@ defmodule Disk8Web.UserSocket do
   #
   # See `Phoenix.Token` documentation for examples in
   # performing token verification on connect.
-  def connect(_params, socket) do
-    {:ok, socket}
+  def connect(%{"token" => token}, socket) do
+    case Guardian.Phoenix.Socket.authenticate(socket, Disk8Web.Guardian, token) do
+      {:ok, authed_socket} -> {:ok, authed_socket}
+      {:error, _} -> :error
+    end
   end
 
   # Socket id's are topics that allow you to identify all sockets for a given user:
