@@ -12,10 +12,14 @@ import {
 function signup(informationsUser) {
     return {
         type: SIGNUP,
-        payload: informationsUser
+        payload: {
+            name: informationsUser.username,
+            password: informationsUser.password,
+            public_key: informationsUser.publicKey,
+            private_key: informationsUser.privateKey,
+        }
     };
 }
-
 
 function login(username) {
     return {

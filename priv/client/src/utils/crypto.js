@@ -1,4 +1,4 @@
-import Crypto from 'node-forge';
+import OpenPGP from 'openpgp';
 import { isNull } from 'lodash';
 
 import Auth from '../utils/auth';
@@ -6,28 +6,28 @@ import { keyPairCreated } from '../actions/authentification';
 
 class CryptedDisk8 {
 
-    // Generate an RSA key pair asynchronously, uses web workers
-    // -1 to run a fast core estimator to optimize number of workers
-    generateKeys() {
+    generateKeys(name, password) {
+        let options = {
+            userIds: [{ pseudo: name}],
+            numBits: 2048, // RSA key size
+            passphrase: password // protects the private key
+        };
         return new Promise((resolve, reject) => {
-            Crypto.pki.rsa.generateKeyPair({bits: 2048, workers: -1}, (err, keypair) => {
+            OpenPGP.generateKey(options)
+                   .then((key) => {
+                       let private_key = key.privateKeyArmored;
+                       let public_key = key.publicKeyArmored;
 
-                if (!isNull(err)) {
-                    reject(err);
-                }
+                       let keys = {
+                           private_key,
+                           public_key
+                       };
 
-                let privateKey = keypair.privateKey;
-                let publicKey  = keypair.publicKey;
-
-                let keys = {
-                    privateKey,
-                    publicKey
-                };
-
-                resolve(keys);
-            })
+                       resolve(keys);
+                   })
         })
     }
 }
+
 
 export default new CryptedDisk8()

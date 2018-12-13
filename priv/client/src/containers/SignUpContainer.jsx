@@ -7,11 +7,11 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Grid from '@material-ui/core/Grid';
 import Snackbar from '@material-ui/core/Snackbar';
+import { size, trim } from 'lodash';
 
 import * as actions from '../actions/authentification';
-
-// For generating RSA keypair
-var openpgp = require('openpgp')
+import CryptedDisk8 from '../utils/crypto';
+import { KEY_NOT_GENERATED, KEY_GENERATING, KEY_GENERATED } from '../utils/config';
 
 class SignUpContainer extends Component {
 
@@ -19,44 +19,48 @@ class SignUpContainer extends Component {
         super();
         this.state = {
             username: '',
-            password1: '',
-            password2: '',
-            passwordOK: false,
-            keyGenerationStatus: 0, //0=not generated / 1=generating / 2=generated
-            publicKey: '',
-            privateKey: '',
+            password: '',
+            password_verification: '',
+            password_match: false,
+            key_generation_status: KEY_NOT_GENERATED,
+            public_key: '',
+            private_key: '',
         };
 
-        this.handleChangePseudo   = this.handleChangePseudo.bind(this);
-        this.handleChangePw1   = this.handleChangePw1.bind(this);
-        this.handleChangePw2   = this.handleChangePw2.bind(this);
-        this.handleKeyPress = this.handleKeyPress.bind(this);
-        this.handleButtonPressed = this.handleButtonPressed.bind(this);
+        this.handleChangePseudo               = this.handleChangePseudo.bind(this);
+        this.handleChangePassword             = this.handleChangePassword.bind(this);
+        this.handleChangePasswordVerification = this.handleChangePasswordVerification.bind(this);
+        this.handleKeyPress                   = this.handleKeyPress.bind(this);
+        this.handleButtonPressed              = this.handleButtonPressed.bind(this);
     }
 
 
     handleChangePseudo(event) {
-        this.setState({username: event.target.value});
+        this.setState({username: trim(event.target.value)});
     }
 
-    handleChangePw1(event) {
-        let pwd = event.target.value;
-        if( pwd.length > 0 && pwd === this.state.password2 ){
-            this.setState({passwordOK: true});
-        } else {
-        this.setState({passwordOK: false});
+    handleChangePassword(event) {
+        let password = trim(event.target.value);
+        this.setState({
+            password,
+            password_match: false
+        });
+
+        if(size(password) > 0 && password === this.state.password_verification) {
+            this.setState({password_match: true});
         }
-        this.setState({password1: pwd});
     }
 
-    handleChangePw2(event) {
-        let pwd = event.target.value;
-        if( pwd.length > 0 && pwd === this.state.password1 ){
-            this.setState({passwordOK: true});
-        } else {
-            this.setState({passwordOK: false});
+    handleChangePasswordVerification(event) {
+        let password_verification = trim(event.target.value);
+        this.setState({
+            password_verification,
+            password_match: false
+        });
+
+        if(size(password_verification) > 0 && password_verification === this.state.password) {
+            this.setState({password_match: true});
         }
-        this.setState({password2: pwd});
     }
 
     handleKeyPress(event) {
@@ -67,34 +71,38 @@ class SignUpContainer extends Component {
     }
 
     handleButtonPressed( event ) {
-
-        if(this.state.keyGenerationStatus == 0 ){ // We need to generate the keys
-            this.setState({
-                keyGenerationStatus: 1,
-            });
-            var options = {
-                userIds: [{ pseudo: this.state.pseudo }],
-                numBits: 2048,                                            // RSA key size
-                passphrase: this.state.password2         // protects the private key
-            };
-            openpgp.generateKey(options).then(function(key) {
-                console.log("Done!");
-                console.log(key.publicKeyArmored);
+        switch (this.state.key_generation_status) {
+            case KEY_NOT_GENERATED:
                 this.setState({
-                    privateKey: key.privateKeyArmored,
-                    publicKey: key.publicKeyArmored,
-                })
-                // We don't use this for now
-                // var revocationSignature = key.revocationSignature;
-                this.setState({keyGenerationStatus: 2});
-            }.bind(this));
-        }
-        else if (this.state.keyGenerationStatus == 2 ){ // Keys are generated, we need to submit to the server
-            console.log("submit form !");
-            this.props.signup(this.state);
-        }
+                    key_generation_status: KEY_GENERATING,
+                });
 
-}
+                CryptedDisk8.generateKeys(this.state.pseudo, this.state.pseudo)
+                            .then(keys => {
+                                this.setState({
+                                    private_key: keys.private_key,
+                                    public_key: keys.public_key,
+                                    key_generation_status: KEY_GENERATED
+                                })
+                            })
+                break;
+
+            case KEY_GENERATED:
+                this.props.signup(this.state);
+                break;
+        }
+    }
+
+    buttonLabel() {
+        switch (this.state.key_generation_status) {
+            case KEY_NOT_GENERATED:
+                return 'Generate Keys';
+            case KEY_GENERATING:
+                return 'Generating keys...';
+            case KEY_GENERATED:
+                return 'Submit';
+        }
+    }
 
     render () {
         const { classes } = this.props
@@ -106,9 +114,9 @@ class SignUpContainer extends Component {
                 spacing    = {16}
                 container >
                 <Grid
-                    direction="column"
-                    justify="center"
-                    alignItems="center"
+                    direction  = "column"
+                    justify    = "center"
+                    alignItems = "center"
                     container >
                     <TextField
                         id           = "pseudo"
@@ -118,54 +126,40 @@ class SignUpContainer extends Component {
                         autoComplete = "username"
                         margin       = "normal"
                         onKeyPress   = {this.handleKeyPress}
-                        onChange     = {this.handleChangePseudo}
-                    />
-                    < TextField
-                        id="password1"
-                        label="Password"
-                        className={classes.textField}
-                        type="password"
-                        autoComplete="current-password"
-                        margin="normal"
-                        onChange     = {this.handleChangePw1}
-                    />
-                    < TextField
-                        id="password2"
-                        label="Password again"
-                        className={classes.textField}
-                        type="password"
-                        autoComplete="current-password"
-                        margin="normal"
-                        onChange     = {this.handleChangePw2}
-                    />
+                        onChange     = {this.handleChangePseudo} />
+                    <TextField
+                        label        = "Password"
+                        className    = {classes.textField}
+                        type         = "password"
+                        autoComplete = "current-password"
+                        margin       = "normal"
+                        onChange     =  {this.handleChangePassword} />
+                    <TextField
+                        label        = "Password again"
+                        className    = {classes.textField}
+                        type         = "password"
+                        autoComplete = "current-password"
+                        margin       = "normal"
+                        onChange     =  {this.handleChangePasswordVerification} />
+                    <Button
+                        id        = "button"
+                        variant   = "contained"
+                        color     = "secondary"
+                        disabled  = {!this.state.password_match || (this.state.key_generation_status == KEY_GENERATING)}
+                        className = {classes.button}
+                        onClick   = {this.handleButtonPressed} >
 
-                    <Button id="button"
-                            variant="contained"
-                            color="secondary"
-                            disabled={!this.state.passwordOK || (this.state.keyGenerationStatus == 1)}
-                            className={classes.button}
-                            onClick={this.handleButtonPressed}
-                    >
-                        {this.state.keyGenerationStatus == 0 ? 'Generate keys' : this.state.keyGenerationStatus == 1 ? 'Generating keys...' :
-                         'Submit ' }
+                        { this.buttonLabel() }
+
                     </Button>
-
-
                     <CircularProgress
-                        style={{ visibility: this.state.keyGenerationStatus == 1 ? "visible" : "hidden"}}
-                        color="secondary"
-                        className={classes.progress}
-                    />
-
-
+                        style     = {{ visibility: this.state.key_generation_status == KEY_GENERATING ? "visible" : "hidden"}}
+                        color     = "secondary"
+                        className = {classes.progress} />
                     <Snackbar
-                        open={this.state.keyGenerationStatus == 2}
-                        message='RSA keys generated !'
-                    />
-
-
+                        open    = {this.state.key_generation_status == KEY_GENERATED}
+                        message = 'RSA keys generated !'/>
                 </Grid>
-
             </Grid>
         );
     }

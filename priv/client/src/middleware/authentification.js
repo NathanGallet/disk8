@@ -17,40 +17,43 @@ import {
 
 import Auth from '../utils/auth';
 import User from '../requests/User';
-import Crypto from '../utils/crypto';
 
-// Worker Saga: will be fired on LOGIN actions
+// Worker Saga: will be fired on SIGNUP actions
 function* createUser(action) {
     try {
-
-        // parameters
+        let { name, password, public_key, private_key } = action.payload
         let parameters = {
             user: {
-                name: action.payload.username,
-                password: action.payload.password1,
-                public_key: action.payload.publicKey,
-                private_key: action.payload.privateKey,
+                name,
+                password,
+                public_key,
+                private_key
             }
         };
-
-        console.log("create user");
-        console.log(parameters);
 
         // Call API to create user
         let user = yield call(User.create, parameters);
 
-        // Generate key pair
-        let keys = yield call(Crypto.generateKeys, null);
+        let { id, token } = user.user
+        let keys = {
+            public_key,
+            private_key
+        }
+        let user_informations = {
+            id,
+            name
+        }
 
         // Set to local storage
-        Auth.setUserInfo(user.data, true, 'userInformations')
+        Auth.setUserInfo(user_informations, true, 'userInformations')
         Auth.setUserInfo(keys, true, 'keyPair');
+        Auth.setUserInfo(token, true, 'token')
 
         // Update the state with the token
-        yield put(loginSuccess(user.data));
+        yield put(loginSuccess(user.user));
 
         // Update the state with keys
-        yield put(keyPairCreated(keys.privateKey, keys.publicKey));
+        yield put(keyPairCreated(keys.private_key, keys.public_key));
 
         // Redirect to /
         yield put(push('/'));
@@ -64,10 +67,6 @@ function* createUser(action) {
    Starts createUser on each dispatched `LOGIN` action.
    Allows concurrent fetches of user.
  */
-// export function* watchLoginUser () {
-//     yield takeLatest(LOGIN, createUser);
-// }
-
 export function* watchSignUpUser () {
     yield takeLatest(SIGNUP, createUser);
 }
