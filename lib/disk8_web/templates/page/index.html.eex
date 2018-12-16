@@ -9,6 +9,6 @@
 
   <body>
     <div id="app"></div>
-    <script src="<%= static_path(@conn, "/js/bundle.js") %>"></script>
+    <script src="<%= Routes.static_url(@conn, "/js/bundle.js") %>"></script>
   </body>
 </html>

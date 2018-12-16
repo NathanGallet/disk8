@@ -3,24 +3,27 @@
 #
 # This configuration file is loaded before any dependency and
 # is restricted to this project.
-use Mix.Config
 
 # General application configuration
+use Mix.Config
+
 config :disk8,
   ecto_repos: [Disk8.Repo]
 
 # Configures the endpoint
 config :disk8, Disk8Web.Endpoint,
   url: [host: "localhost"],
-  secret_key_base: "Gt7N9C7/uKV7RJMAb707kj5b0ilG3vO+d+Vq3mB0lrDcDRlKu4f4vjAlH5WyqZlU",
+  secret_key_base: "2ir/JjGwk/ofouSw6TrDsnoFvUW8K4sr5TD0Es4jazTDWvAmeeFnjvcz5Gv2Rn56",
   render_errors: [view: Disk8Web.ErrorView, accepts: ~w(html json)],
-  pubsub: [name: Disk8.PubSub,
-           adapter: Phoenix.PubSub.PG2]
+  pubsub: [name: Disk8.PubSub, adapter: Phoenix.PubSub.PG2]
 
 # Configures Elixir's Logger
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",
   metadata: [:request_id]
+
+# Use Jason for JSON parsing in Phoenix
+config :phoenix, :json_library, Jason
 
 # Configuration for Guardian
 config :disk8, Disk8Web.Guardian,
@@ -33,4 +36,4 @@ config :disk8, Disk8Web.Guardian,
 
 # Import environment specific config. This must remain at the bottom
 # of this file so it overrides the configuration defined above.
-import_config "#{Mix.env}.exs"
+import_config "#{Mix.env()}.exs"

@@ -1,6 +1,7 @@
-* Server [50%]
+* Server [37%]
 - [X] add guardian to endpoints and tests
-- [ ] add guardian to channels
+- [X] add guardian to channels
+- [X] update phoenix from 1.3 to 1.4 (https://gist.github.com/chrismccord/bb1f8b136f5a9e4abc0bfc07b832257e)
 - [ ] add new functions to channels + tests
 - [ ] update documentation
 - [ ] create cache database with genserver, otp, esp

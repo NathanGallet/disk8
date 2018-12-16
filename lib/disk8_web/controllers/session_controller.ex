@@ -12,18 +12,21 @@ defmodule Disk8Web.SessionController do
           user |> Disk8Web.Guardian.encode_and_sign(%{}, token_type: :token)
         conn
         |> put_status(:created)
-        |> render(Disk8Web.UserView, "show.json", jwt: jwt, user: user)
+        |> put_view(Disk8Web.UserView)
+        |> render("show.json", jwt: jwt, user: user)
 
       {:error, message} ->
         conn
         |> put_status(401)
-        |> render(Disk8Web.UserView, "error.json", message: message)
+        |> put_view(Disk8Web.UserView)
+        |> render("error.json", message: message)
     end
   end
 
   def auth_error(conn, {_type, _reason}, _opts) do
     conn
     |> put_status(:forbidden)
-    |> render(Disk8Web.UserView, "error.json", message: "Not Authenticated")
+    |> put_view(Disk8Web.UserView)
+    |> render("error.json", message: "Not Authenticated")
   end
 end

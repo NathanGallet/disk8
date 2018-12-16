@@ -27,7 +27,9 @@ defmodule Disk8Web.UserController do
         |> render("show.json", user: user, jwt: jwt)
 
       {:error, changeset} ->
-        render(conn, Disk8Web.ChangesetView, "error.json", changeset: changeset)
+        conn
+        |> put_view(Disk8Web.ChangesetView)
+        |> render("error.json", changeset: changeset)
     end
   end
 

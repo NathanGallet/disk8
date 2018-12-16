@@ -1,14 +1,18 @@
 defmodule Disk8Web.Endpoint do
   use Phoenix.Endpoint, otp_app: :disk8
 
-  socket "/socket", Disk8Web.UserSocket
+  socket "/socket", Disk8Web.UserSocket,
+    websocket: true,
+    longpoll: false
 
   # Serve at "/" the static files from "priv/static" directory.
   #
-  # You should set gzip to true if you are running phoenix.digest
+  # You should set gzip to true if you are running phx.digest
   # when deploying your static files in production.
   plug Plug.Static,
-    at: "/", from: :disk8, gzip: false,
+    at: "/",
+    from: :disk8,
+    gzip: false,
     only: ~w(css fonts images js favicon.ico robots.txt)
 
   # Code reloading can be explicitly enabled under the
@@ -25,7 +29,7 @@ defmodule Disk8Web.Endpoint do
   plug Plug.Parsers,
     parsers: [:urlencoded, :multipart, :json],
     pass: ["*/*"],
-    json_decoder: Poison
+    json_decoder: Phoenix.json_library()
 
   plug Plug.MethodOverride
   plug Plug.Head
@@ -36,7 +40,7 @@ defmodule Disk8Web.Endpoint do
   plug Plug.Session,
     store: :cookie,
     key: "_disk8_key",
-    signing_salt: "pnS03czD"
+    signing_salt: "l1ZDhZK4"
 
   plug Corsica,
     origins: "http://localhost:8080",

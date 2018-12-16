@@ -21,9 +21,9 @@ defmodule Disk8Web do
     quote do
       use Phoenix.Controller, namespace: Disk8Web
       import Plug.Conn
-      import Disk8Web.Router.Helpers
-      import Disk8Web.ErrorHelpers
       import Disk8Web.Gettext
+      import Disk8Web.ErrorHelpers
+      alias Disk8Web.Router.Helpers, as: Routes
     end
   end
 
@@ -34,11 +34,11 @@ defmodule Disk8Web do
         namespace: Disk8Web
 
       # Import convenience functions from controllers
-      import Phoenix.Controller, only: [get_flash: 2, view_module: 1]
+      import Phoenix.Controller, only: [get_flash: 1, get_flash: 2, view_module: 1]
 
-      import Disk8Web.Router.Helpers
       import Disk8Web.ErrorHelpers
       import Disk8Web.Gettext
+      alias Disk8Web.Router.Helpers, as: Routes
     end
   end
 

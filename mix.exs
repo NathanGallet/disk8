@@ -1,24 +1,16 @@
-defmodule Disk8.Mixfile do
+defmodule Disk8.MixProject do
   use Mix.Project
 
   def project do
     [
       app: :disk8,
-      version: "0.0.1",
-      elixir: "~> 1.4",
-      elixirc_paths: elixirc_paths(Mix.env),
-      compilers: [:phoenix, :gettext] ++ Mix.compilers,
-      start_permanent: Mix.env == :prod,
+      version: "0.1.0",
+      elixir: "~> 1.5",
+      elixirc_paths: elixirc_paths(Mix.env()),
+      compilers: [:phoenix, :gettext] ++ Mix.compilers(),
+      start_permanent: Mix.env() == :prod,
       aliases: aliases(),
-      deps: deps(),
-
-      # Docs
-      name: "Disk8",
-      source_url: "https://github.com/NathanGallet/disk8",
-      homepage_url: "http://localhost",
-      docs: [main: "Disk8",
-             logo: "priv/static/images/disk8.png",
-             extras: ["README.md"]]
+      deps: deps()
     ]
   end
 
@@ -34,22 +26,24 @@ defmodule Disk8.Mixfile do
 
   # Specifies which paths to compile per environment.
   defp elixirc_paths(:test), do: ["lib", "test/support"]
-  defp elixirc_paths(_),     do: ["lib"]
+  defp elixirc_paths(_), do: ["lib"]
 
   # Specifies your project dependencies.
   #
   # Type `mix help deps` for examples and options.
   defp deps do
     [
-      {:phoenix, "~> 1.3.0"},
-      {:phoenix_pubsub, "~> 1.0"},
-      {:phoenix_ecto, "~> 3.2"},
+      {:phoenix, "~> 1.4.0"},
+      {:phoenix_pubsub, "~> 1.1"},
+      {:phoenix_ecto, "~> 4.0"},
+      {:ecto_sql, "~> 3.0"},
       {:postgrex, ">= 0.0.0"},
-      {:phoenix_html, "~> 2.10"},
-      {:phoenix_live_reload, "~> 1.0", only: :dev},
+      {:phoenix_html, "~> 2.11"},
+      {:phoenix_live_reload, "~> 1.2", only: :dev},
       {:gettext, "~> 0.11"},
-      {:cowboy, "~> 1.0"},
-      # My plugs
+      {:jason, "~> 1.0"},
+      {:plug_cowboy, "~> 2.0"},
+      # My Plugs
       {:proper_case, "~> 1.0.0"},
       {:guardian, "~> 1.0"},
       {:plug, "~> 1.0"},

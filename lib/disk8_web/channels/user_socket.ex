@@ -1,13 +1,8 @@
 defmodule Disk8Web.UserSocket do
   use Phoenix.Socket
-  import Guardian.Phoenix.Socket
 
   ## Channels
   channel "room:*", Disk8Web.RoomChannel
-
-  ## Transports
-  transport :websocket, Phoenix.Transports.WebSocket
-  # transport :longpoll, Phoenix.Transports.LongPoll
 
   # Socket params are passed from the client and can
   # be used to verify and authenticate a user. After

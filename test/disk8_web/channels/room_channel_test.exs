@@ -2,6 +2,7 @@ defmodule Disk8Web.RoomChannelTest do
   use Disk8Web.ChannelCase
 
   alias Disk8Web.RoomChannel
+  alias Disk8Web.UserSocket
   alias Disk8.Accounts
 
   @first_user %{
@@ -22,11 +23,12 @@ defmodule Disk8Web.RoomChannelTest do
   @second_message "Plait"
 
   setup do
-    {:ok, _, socket} =
-      socket("user_id", %{some: :assign})
+    {:ok, _empty_suff, socket} =
+      UserSocket
+      |> socket("user_id", %{some: :assign})
       |> subscribe_and_join(RoomChannel, "room:lobby")
 
-    {:ok, socket: socket}
+      {:ok, socket: socket}
   end
 
   test "new user connection to room:lobby", %{socket: socket} do
