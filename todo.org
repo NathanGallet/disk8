@@ -1,6 +1,6 @@
-* Server [50%]
+* Server [28%]
 - [X] add guardian to endpoints and tests
-- [ ] add guardian to channels
+- [X] add guardian to channels
 - [ ] add new functions to channels + tests
 - [ ] update documentation
 - [ ] create cache database with genserver, otp, esp
