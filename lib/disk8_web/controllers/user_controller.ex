@@ -28,6 +28,7 @@ defmodule Disk8Web.UserController do
 
       {:error, changeset} ->
         conn
+        |> put_status(:bad_request)
         |> put_view(Disk8Web.ChangesetView)
         |> render("error.json", changeset: changeset)
     end

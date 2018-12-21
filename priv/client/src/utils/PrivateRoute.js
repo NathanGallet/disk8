@@ -1,18 +1,18 @@
 import React from 'react';
 import { Redirect, Route } from 'react-router-dom';
-import Auth from './auth';
+import LocalStorage from './LocalStorage';
 import { isNull } from 'lodash';
 
 const PrivateRoute = ({ component: Component, ...othersProps }) => (
     <Route
         {...othersProps}
         render={props =>
-           !isNull(Auth.getUserInfo('userInformations')) ? (
+           !isNull(LocalStorage.getUserInfo('userInformations')) ? (
                 <Component {...props} />
             ) : (
                 <Redirect
                     to={{
-                        pathname: "/login",
+                        pathname: "/signup",
                         state: { from: props.location }
                     }}
                 />

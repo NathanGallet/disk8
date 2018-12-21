@@ -1,5 +1,5 @@
 import { Socket } from "phoenix";
-import { WS_API_URL } from '../utils/config';
+import { WS_API_URL } from '../constants/constants';
 
 class Disk8Sock8 {
 
@@ -7,8 +7,13 @@ class Disk8Sock8 {
         this.url = url;
     }
 
-    createSocket() {
-        this.socket = new Socket(`${this.url}/socket`);
+    createSocket(token) {
+        this.socket = new Socket(`${this.url}/socket`, {
+            params: {
+                token
+            }
+        });
+
         this.socket.connect()
         this.socket.onError(() => console.error('There was an error with the connection !'))
         this.socket.onClose(() => console.error("the connection dropped !"))

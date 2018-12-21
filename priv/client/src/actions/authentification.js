@@ -9,14 +9,14 @@ import {
 } from '../constants/authentification';
 
 
-function signup(informationsUser) {
+function signup(user_informations) {
     return {
         type: SIGNUP,
         payload: {
-            name: informationsUser.username,
-            password: informationsUser.password,
-            public_key: informationsUser.publicKey,
-            private_key: informationsUser.privateKey,
+            name: user_informations.username,
+            password: user_informations.password,
+            public_key: user_informations.public_key,
+            private_key: user_informations.private_key,
         }
     };
 }
@@ -28,10 +28,10 @@ function login(username) {
     };
 }
 
-function loginSuccess(informationsUser) {
+function loginSuccess(user_informations) {
     return {
         type: LOGIN_SUCCESS,
-        payload: informationsUser
+        payload: user_informations
     };
 }
 
@@ -42,12 +42,12 @@ function loginFailure(error) {
     };
 }
 
-function keyPairCreated(privateKey, publicKey) {
+function keyPairCreated(private_key, public_key) {
     return {
         type: KEY_PAIR_CREATED,
         payload: {
-            privateKey,
-            publicKey
+            private_key,
+            public_key
         }
     }
 }

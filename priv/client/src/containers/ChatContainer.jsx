@@ -9,15 +9,18 @@ import Grid from '@material-ui/core/Grid';
 import * as actions from '../actions/chat';
 import { MessageBoard, MessageComposer, UserList } from '../components';
 import Sock8 from '../sockets/socket';
-import { DEFAULT_CHANNEL } from '../utils/config';
-import Auth from '../utils/auth';
+import { DEFAULT_CHANNEL } from '../constants/constants';
+import LocalStorage from '../utils/LocalStorage';
 
 // TODO: use grid to layout the chat properly
 class ChatContainer extends Component {
 
     componentDidMount() {
+        // Get token
+        let token = LocalStorage.getUserInfo('token')
+
         // Create connexion socket and join default channel
-        Sock8.createSocket();
+        Sock8.createSocket({token: token})
         Sock8.joinChannel(DEFAULT_CHANNEL);
 
         // Every message including message sent by the user will be received and display by this function
@@ -25,7 +28,7 @@ class ChatContainer extends Component {
     }
 
     render () {
-        const { classes, messagesInformations, postMessage, userId } = this.props;
+        const { classes, message_informations, postMessage, userid } = this.props;
 
         return (
             <Grid container spacing={16}>
@@ -35,9 +38,9 @@ class ChatContainer extends Component {
 
                 <Grid item xs={8}>
                     <MessageBoard
-                        messagesInformations={messagesInformations} />
+                        message_informations={message_informations} />
                     <MessageComposer
-                        sendMessage={(message) => postMessage(message, userId)} />
+                        sendMessage={(message) => postMessage(message, userid)} />
                 </Grid>
             </Grid>
         )
@@ -50,9 +53,9 @@ const styles = theme => ({
 
 const mapStateToProps = state => {
     return {
-        messagesInformations : state.chat.messagesInformations,
-        userId               : state.authentification.userId,
-        userName             : state.authentification.userName
+        message_informations : state.chat.message_informations,
+        userid               : state.authentification.userid,
+        user_name            : state.authentification.user_name
     };
 }
 

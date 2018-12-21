@@ -1,4 +1,5 @@
 import Requests from '../utils/requests';
+import { STATUS_SUCCESS_CREATED } from '../constants/code_server';
 
 /*
    All requests to the endpoint /api/user,
@@ -18,7 +19,7 @@ class UserRequests {
             .post(`/user`, body)
             .then(
                 response => {
-                    if (response.status != 201) {
+                    if (response.status != STATUS_SUCCESS_CREATED) {
                         throw response;
                     }
                     return response.json();

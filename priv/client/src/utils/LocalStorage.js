@@ -3,8 +3,7 @@ import { isEmpty } from 'lodash';
 const parse = JSON.parse;
 const stringify = JSON.stringify;
 
-
-class Auth {
+class LocalStorage {
 
     clear(key) {
         if (localStorage && localStorage.getItem(key)) {
@@ -80,4 +79,4 @@ class Auth {
 
 };
 
-export default new Auth();
+export default new LocalStorage();

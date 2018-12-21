@@ -20,6 +20,8 @@
       }
     }
 - [ ] implements call /api/user/logout (not ready)
+- [ ] change css login page
+- [ ] error gestion on requests/user
 
 (1) : When the token is recieved put in the headers
       Authorization: Token `token`

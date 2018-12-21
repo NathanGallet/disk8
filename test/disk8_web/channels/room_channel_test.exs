@@ -21,16 +21,19 @@ defmodule Disk8Web.RoomChannelTest do
 
   @first_message "Yo"
   @second_message "Plait"
+  @fake_token "faketoken"
 
   setup do
+    # Create account
     {:ok, first_user} = Accounts.create_user(@first_user)
 
+    # Join lobby room
     {:ok, _empty_suff, socket} =
       UserSocket
       |> socket("user_id", %{user_id: first_user.id})
       |> subscribe_and_join(RoomChannel, "room:lobby")
 
-      {:ok, socket: socket, user: first_user}
+    {:ok, socket: socket, user: first_user}
   end
 
   test "new user connection to room:lobby", %{socket: socket, user: first_user} do
@@ -46,5 +49,20 @@ defmodule Disk8Web.RoomChannelTest do
 
     assert_broadcast("message", %{user: "Mr Putput", message: @first_message})
     assert_broadcast("message", %{user: "Zios", message: @second_message})
+  end
+
+  test "test connection jwt in socket", %{socket: _socket, user: first_user} do
+    {:ok, jwt, _full_claims} =
+      first_user |> Disk8Web.Guardian.encode_and_sign(%{}, token_type: :token)
+
+    # Try to connect using jwt
+    {:ok, _socket} =
+      UserSocket
+      |> connect(%{token: jwt})
+
+    # Try to connect using jwt
+    :error =
+      UserSocket
+      |> connect(%{token: @fake_token})
   end
 end

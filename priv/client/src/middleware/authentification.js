@@ -15,7 +15,7 @@ import {
     LOGIN_FAIL
 } from '../constants/authentification';
 
-import Auth from '../utils/auth';
+import LocalStorage from '../utils/LocalStorage';
 import User from '../requests/User';
 
 // Worker Saga: will be fired on SIGNUP actions
@@ -45,9 +45,10 @@ function* createUser(action) {
         }
 
         // Set to local storage
-        Auth.setUserInfo(user_informations, true, 'userInformations')
-        Auth.setUserInfo(keys, true, 'keyPair');
-        Auth.setUserInfo(token, true, 'token')
+        LocalStorage.setUserInfo(user_informations, true, 'userInformations')
+        LocalStorage.setUserInfo(keys, true, 'keyPair');
+        LocalStorage.setUserInfo(token, true, 'token')
+
 
         // Update the state with the token
         yield put(loginSuccess(user.user));

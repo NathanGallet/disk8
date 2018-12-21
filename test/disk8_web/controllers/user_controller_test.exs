@@ -47,7 +47,7 @@ defmodule Disk8Web.UserControllerTest do
 
     test "renders errors when data is invalid", %{conn: conn} do
       conn = post(conn, user_path(conn, :create), user: @missing_fields_attrs)
-      assert json_response(conn, 200)["errors"] == %{
+      assert json_response(conn, 400)["errors"] == %{
         "public_key"  => ["can't be blank"],
         "private_key" => ["can't be blank"],
         "password"    => ["can't be blank"]
@@ -59,7 +59,7 @@ defmodule Disk8Web.UserControllerTest do
       assert %{"id" => id} = json_response(conn, 201)["user"]
 
       conn = post(conn, user_path(conn, :create), user: @create_attrs)
-      assert response(conn, 200) =~ "has already been taken"
+      assert response(conn, 400) =~ "has already been taken"
     end
   end
 

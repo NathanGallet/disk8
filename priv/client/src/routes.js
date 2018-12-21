@@ -14,9 +14,8 @@ const routes = (
     <Provider store={store}>
         <ConnectedRouter history={history}>
             <Switch>
-                <PrivateRoute exact path="/" component={SignUpContainer} />
-                {/* <Route path="/signup" component={SignUpContainer} />
-                    <Route path="/login" component={SignUpContainer} /> */}
+                <PrivateRoute exact path="/" component={ChatContainer} />
+                <Route path="/signup" component={SignUpContainer} />
             </Switch>
         </ConnectedRouter>
     </Provider>

@@ -1,4 +1,4 @@
-import { HTTP_API_URL } from './config';
+import { HTTP_API_URL } from '../constants/constants';
 
 const responseBody = res => res.body;
 

@@ -5,7 +5,7 @@ import {
 import { concat } from 'lodash';
 
 const initialState = {
-    messagesInformations: []
+    message_informations: []
 };
 
 export default (state = initialState, action) => {
@@ -18,7 +18,7 @@ export default (state = initialState, action) => {
             }
             return {
                 ...state,
-                messagesInformations: concat(state.messagesInformations, informations)
+                message_informations: concat(state.message_informations, informations)
             }
         }
         case POST_MESSAGE: {

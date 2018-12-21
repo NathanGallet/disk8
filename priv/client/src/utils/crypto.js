@@ -1,7 +1,6 @@
 import OpenPGP from 'openpgp';
 import { isNull } from 'lodash';
 
-import Auth from '../utils/auth';
 import { keyPairCreated } from '../actions/authentification';
 
 class CryptedDisk8 {

@@ -11,7 +11,7 @@ import { size, trim } from 'lodash';
 
 import * as actions from '../actions/authentification';
 import CryptedDisk8 from '../utils/crypto';
-import { KEY_NOT_GENERATED, KEY_GENERATING, KEY_GENERATED } from '../utils/config';
+import { KEY_NOT_GENERATED, KEY_GENERATING, KEY_GENERATED } from '../constants/constants';
 
 class SignUpContainer extends Component {
 
@@ -184,8 +184,8 @@ const styles = theme => ({
 
 const mapStateToProps = state => {
     return {
-        userId: state.authentification.userId,
-        userName: state.authentification.userName
+        userid: state.authentification.userid,
+        user_name: state.authentification.user_name
     };
 }
 
