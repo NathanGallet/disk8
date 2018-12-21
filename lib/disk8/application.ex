@@ -11,9 +11,10 @@ defmodule Disk8.Application do
       # Start the Ecto repository
       Disk8.Repo,
       # Start the endpoint when the application starts
-      Disk8Web.Endpoint
+      Disk8Web.Endpoint,
       # Starts a worker by calling: Disk8.Worker.start_link(arg)
       # {Disk8.Worker, arg},
+      Disk8Web.Presence
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

@@ -23,23 +23,22 @@ defmodule Disk8Web.RoomChannelTest do
   @second_message "Plait"
 
   setup do
-    {:ok, _empty_suff, socket} =
-      UserSocket
-      |> socket("user_id", %{some: :assign})
-      |> subscribe_and_join(RoomChannel, "room:lobby")
-
-      {:ok, socket: socket}
-  end
-
-  test "new user connection to room:lobby", %{socket: socket} do
     {:ok, first_user} = Accounts.create_user(@first_user)
 
+    {:ok, _empty_suff, socket} =
+      UserSocket
+      |> socket("user_id", %{user_id: first_user.id})
+      |> subscribe_and_join(RoomChannel, "room:lobby")
+
+      {:ok, socket: socket, user: first_user}
+  end
+
+  test "new user connection to room:lobby", %{socket: socket, user: first_user} do
     push(socket, "new_user", %{id: first_user.id})
     assert_broadcast("new_user", %{user: "Mr Putput"})
   end
 
-  test "message is broadcasted to client", %{socket: socket} do
-    {:ok, first_user} = Accounts.create_user(@first_user)
+  test "message is broadcasted to client", %{socket: socket, user: first_user} do
     {:ok, second_user} = Accounts.create_user(@second_user)
 
     push(socket, "message", %{id: first_user.id, message: @first_message})
