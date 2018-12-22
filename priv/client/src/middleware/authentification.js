@@ -3,16 +3,13 @@ import { push } from 'react-router-redux';
 
 import {
     loginSuccess,
-    signup,
     loginFailure,
-    keyPairCreated
+    keyPairCreated,
+    tokenCreated
 } from '../actions/authentification';
 
 import {
-    SIGNUP,
-    LOGIN,
-    LOGIN_SUCCESS,
-    LOGIN_FAIL
+    SIGNUP
 } from '../constants/authentification';
 
 import LocalStorage from '../utils/LocalStorage';
@@ -34,26 +31,29 @@ function* createUser(action) {
         // Call API to create user
         let user = yield call(User.create, parameters);
 
-        let { id, token } = user.user
+        let { id, token } = user.user;
         let keys = {
             public_key,
             private_key
-        }
+        };
         let user_informations = {
             id,
             name
-        }
+        };
 
         // Set to local storage
-        LocalStorage.setUserInfo(user_informations, true, 'userInformations')
+        LocalStorage.setUserInfo(user_informations, true, 'userInformations');
         LocalStorage.setUserInfo(keys, true, 'keyPair');
-        LocalStorage.setUserInfo(token, true, 'token')
+        LocalStorage.setUserInfo(token, true, 'token');
 
-        // Update the state with the token
+        // Update the state with user informations
         yield put(loginSuccess(user.user));
 
         // Update the state with keys
         yield put(keyPairCreated(keys.private_key, keys.public_key));
+
+        // Update the state with token
+        yield put(tokenCreated(token));
 
         // Redirect to /
         yield put(push('/'));

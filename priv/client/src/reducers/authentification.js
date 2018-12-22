@@ -1,4 +1,11 @@
-import { KEY_PAIR_CREATED, LOGIN_SUCCESS, LOGIN_FAIL, LOGIN, SIGNUP } from '../constants/authentification';
+import {
+    KEY_PAIR_CREATED,
+    LOGIN_SUCCESS,
+    LOGIN_FAIL,
+    LOGIN,
+    SIGNUP,
+    TOKEN_CREATED
+} from '../constants/authentification';
 import LocalStorage from '../utils/LocalStorage';
 import { isNull } from 'lodash';
 
@@ -39,6 +46,13 @@ export default (state = initialState, action) => {
                 ...state,
                 private_key: action.payload.private_key,
                 public_key: action.payload.public_key
+            }
+        }
+
+        case TOKEN_CREATED: {
+            return {
+                ...state,
+                token: action.payload.token
             }
         }
 

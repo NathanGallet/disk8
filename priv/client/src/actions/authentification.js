@@ -5,7 +5,8 @@ import {
     LOGIN,
     LOGIN_SUCCESS,
     LOGIN_FAIL,
-    KEY_PAIR_CREATED
+    KEY_PAIR_CREATED,
+    TOKEN_CREATED
 } from '../constants/authentification';
 
 
@@ -49,7 +50,16 @@ function keyPairCreated(private_key, public_key) {
             private_key,
             public_key
         }
-    }
+    };
+}
+
+function tokenCreated(token) {
+    return {
+        type: TOKEN_CREATED,
+        payload: {
+            token
+        }
+    };
 }
 
 export {
@@ -57,5 +67,6 @@ export {
     login,
     loginSuccess,
     loginFailure,
-    keyPairCreated
+    keyPairCreated,
+    tokenCreated
 };

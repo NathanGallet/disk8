@@ -24,7 +24,7 @@ class Disk8Sock8 {
         this.channel = this.socket.channel(`room:${channelName}`, {});
         this.channel
             .join()
-            .receive("ok", resp => { console.log("Joined successfully", resp) })
+            .receive("ok", () => { console.log("Joined successfully") })
             .receive("error", resp => { console.log("Unable to join", resp) })
     }
 
