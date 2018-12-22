@@ -3,12 +3,14 @@ import LocalStorage from '../utils/LocalStorage';
 import { isNull } from 'lodash';
 
 // Check information in the local storage
-let user = LocalStorage.getUserInfo('userInformations');
-let keys = LocalStorage.getUserInfo('keyPair');
+let user  = LocalStorage.getUserInfo('userInformations');
+let keys  = LocalStorage.getUserInfo('keyPair');
+let token = LocalStorage.getUserInfo('token');
 
 // Initial conditions
 const initialState = {
     userid      : !isNull(user) ? user.id : null,
+    token       : !isNull(token) ? token : null,
     user_name   : !isNull(user) ? user.name : null,
     public_key  : !isNull(keys) ? keys.public_key : null,
     private_key : !isNull(keys) ? keys.private_key : null,

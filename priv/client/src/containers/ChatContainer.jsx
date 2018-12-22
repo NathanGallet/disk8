@@ -16,11 +16,8 @@ import LocalStorage from '../utils/LocalStorage';
 class ChatContainer extends Component {
 
     componentDidMount() {
-        // Get token
-        let token = LocalStorage.getUserInfo('token')
-
         // Create connexion socket and join default channel
-        Sock8.createSocket({token: token})
+        Sock8.createSocket(this.props.token)
         Sock8.joinChannel(DEFAULT_CHANNEL);
 
         // Every message including message sent by the user will be received and display by this function
@@ -55,7 +52,8 @@ const mapStateToProps = state => {
     return {
         message_informations : state.chat.message_informations,
         userid               : state.authentification.userid,
-        user_name            : state.authentification.user_name
+        user_name            : state.authentification.user_name,
+        token                : state.authentification.token
     };
 }
 

@@ -49,7 +49,6 @@ function* createUser(action) {
         LocalStorage.setUserInfo(keys, true, 'keyPair');
         LocalStorage.setUserInfo(token, true, 'token')
 
-
         // Update the state with the token
         yield put(loginSuccess(user.user));
 

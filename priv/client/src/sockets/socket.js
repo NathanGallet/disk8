@@ -8,12 +8,13 @@ class Disk8Sock8 {
     }
 
     createSocket(token) {
-        this.socket = new Socket(`${this.url}/socket`, {
+        let parameters = {
             params: {
                 token
             }
-        });
+        };
 
+        this.socket = new Socket(`${this.url}/socket`, parameters)
         this.socket.connect()
         this.socket.onError(() => console.error('There was an error with the connection !'))
         this.socket.onClose(() => console.error("the connection dropped !"))

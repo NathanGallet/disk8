@@ -3,11 +3,12 @@ import { Redirect, Route } from 'react-router-dom';
 import LocalStorage from './LocalStorage';
 import { isNull } from 'lodash';
 
+// TODO: Check token instead of userInformations and use webservice to check token validity
 const PrivateRoute = ({ component: Component, ...othersProps }) => (
     <Route
         {...othersProps}
         render={props =>
-           !isNull(LocalStorage.getUserInfo('userInformations')) ? (
+           !isNull(LocalStorage.getUserInfo('token')) ? (
                 <Component {...props} />
             ) : (
                 <Redirect
