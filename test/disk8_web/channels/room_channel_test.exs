@@ -21,48 +21,50 @@ defmodule Disk8Web.RoomChannelTest do
 
   @first_message "Yo"
   @second_message "Plait"
-  @fake_token "faketoken"
+  @wrong_token "wrongtoken"
 
   setup do
-    # Create account
-    {:ok, first_user} = Accounts.create_user(@first_user)
-
-    # Join lobby room
-    {:ok, _empty_suff, socket} =
-      UserSocket
-      |> socket("user_id", %{user_id: first_user.id})
-      |> subscribe_and_join(RoomChannel, "room:lobby")
-
-    {:ok, socket: socket, user: first_user}
+    user_connection(@first_user)
   end
 
-  test "new user connection to room:lobby", %{socket: socket, user: first_user} do
-    push(socket, "new_user", %{id: first_user.id})
+  test "new user connection to room:lobby", %{socket: socket, user: _first_user} do
+    push(socket, "new_user")
     assert_broadcast("new_user", %{user: "Mr Putput"})
   end
 
-  test "message is broadcasted to client", %{socket: socket, user: first_user} do
-    {:ok, second_user} = Accounts.create_user(@second_user)
+  test "message is broadcasted to client", %{socket: first_socket, user: _first_user} do
+    {:ok, socket: second_socket, user: _user} = user_connection(@second_user)
 
-    push(socket, "message", %{id: first_user.id, message: @first_message})
-    push(socket, "message", %{id: second_user.id, message: @second_message})
+    push(first_socket, "message", %{message: @first_message})
+    push(second_socket, "message", %{message: @second_message})
 
     assert_broadcast("message", %{user: "Mr Putput", message: @first_message})
     assert_broadcast("message", %{user: "Zios", message: @second_message})
   end
 
-  test "test connection jwt in socket", %{socket: _socket, user: first_user} do
-    {:ok, jwt, _full_claims} =
-      first_user |> Disk8Web.Guardian.encode_and_sign(%{}, token_type: :token)
-
-    # Try to connect using jwt
-    {:ok, _socket} =
-      UserSocket
-      |> connect(%{token: jwt})
-
-    # Try to connect using jwt
+  test "test connection with wrong jwt in socket", %{socket: _socket, user: _first_user} do
+    # Try to connect using wrong jwt
     :error =
       UserSocket
-      |> connect(%{token: @fake_token})
+      |> connect(%{token: @wrong_token})
+  end
+
+
+  defp user_connection(user_params) do
+    # Create account
+    {:ok, user} = Accounts.create_user(user_params)
+
+    # Generate jwt token
+    {:ok, jwt, _full_claims} =
+      user |> Disk8Web.Guardian.encode_and_sign(%{}, token_type: :token)
+
+    # Try to connect using jwt
+    {:ok, socket} = connect(UserSocket, %{token: jwt})
+
+    # Join lobby room
+    {:ok, _empty_suff, socket} = subscribe_and_join(socket, RoomChannel, "room:lobby")
+
+    # Return socket and first user
+    {:ok, socket: socket, user: user}
   end
 end

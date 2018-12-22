@@ -4,7 +4,6 @@ defmodule Disk8Web.RoomChannel do
 
   """
   use Disk8Web, :channel
-  alias Disk8.Accounts
   alias Disk8Web.Presence
 
   def join("room:lobby", _message, socket) do
@@ -17,21 +16,20 @@ defmodule Disk8Web.RoomChannel do
   end
 
   # Callback function
-  def handle_in("new_user", %{"id" => id}, socket) do
-    user = Accounts.get_user!(id)
-    broadcast!(socket, "new_user", %{user: user.name})
+  def handle_in("new_user", %{}, socket) do
+    broadcast!(socket, "new_user", %{user: socket.assigns.guardian_default_resource.name})
     {:noreply, socket}
   end
 
-  def handle_in("message", %{"message" => message, "id" => id}, socket) do
-    user = Accounts.get_user!(id)
-    broadcast!(socket, "message", %{user: user.name, message: message})
+  def handle_in("message", %{"message" => message}, socket) do
+    user = socket.assigns.guardian_default_resource.name
+    broadcast!(socket, "message", %{user: user , message: message})
     {:noreply, socket}
   end
 
   def handle_info(:after_join, socket) do
     push(socket, "presence_state", Presence.list(socket))
-    {:ok, _} = Presence.track(socket, socket.assigns.user_id, %{
+    {:ok, _} = Presence.track(socket, socket.assigns.guardian_default_resource.id, %{
           online_at: inspect(System.system_time(:second))
                               })
     {:noreply, socket}

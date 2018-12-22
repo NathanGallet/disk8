@@ -17,7 +17,7 @@ class ChatContainer extends Component {
 
     componentDidMount() {
         // Create connexion socket and join default channel
-        Sock8.createSocket(this.props.token)
+        Sock8.createSocket(this.props.token);
         Sock8.joinChannel(DEFAULT_CHANNEL);
 
         // Every message including message sent by the user will be received and display by this function

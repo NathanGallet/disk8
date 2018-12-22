@@ -14,10 +14,10 @@ class Disk8Sock8 {
             }
         };
 
-        this.socket = new Socket(`${this.url}/socket`, parameters)
-        this.socket.connect()
-        this.socket.onError(() => console.error('There was an error with the connection !'))
-        this.socket.onClose(() => console.error("the connection dropped !"))
+        this.socket = new Socket(`${this.url}/socket`, parameters);
+        this.socket.connect();
+        this.socket.onError(() => console.error('There was an error with the connection !'));
+        this.socket.onClose(() => console.error("the connection dropped !"));
     }
 
     joinChannel(channelName) {
