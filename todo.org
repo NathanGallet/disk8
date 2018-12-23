@@ -2,14 +2,15 @@
 - [X] add guardian to endpoints and tests
 - [X] add guardian to channels
 - [X] update phoenix from 1.3 to 1.4 (https://gist.github.com/chrismccord/bb1f8b136f5a9e4abc0bfc07b832257e)
+- [ ] better security, you can get everybody informations asa your logged
 - [ ] add new functions to channels + tests
 - [ ] update documentation
 - [ ] create cache database with genserver, otp, esp
 - [ ] track token using :esp
 - [ ] deployment on heroku
 
-* Client [0%]
-- [ ] update jwt connections (1)
+* Client [20%]
+- [X] update jwt connections (1)
 - [ ] implements call /api/user/login
   - Method: POST
   - Endpoint : /api/user/login
@@ -22,6 +23,8 @@
 - [ ] implements call /api/user/logout (not ready)
 - [ ] change css login page
 - [ ] error gestion on requests/user
-
-(1) : When the token is recieved put in the headers
-      Authorization: Token `token`
+- [ ] better handle of private route (call ws to check if token authorized)
+- [ ] crypted messages
+- [ ] add notification system (error handler + informations)
+- [ ] implements client new server action
+- [ ] channel list

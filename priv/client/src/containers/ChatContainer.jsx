@@ -7,7 +7,7 @@ import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 
 import * as actions from '../actions/chat';
-import { MessageBoard, MessageComposer, UserList } from '../components';
+import { MessageBoard, MessageComposer, UserList, ChannelList } from '../components';
 import Sock8 from '../sockets/socket';
 import { DEFAULT_CHANNEL } from '../constants/constants';
 import LocalStorage from '../utils/LocalStorage';
@@ -30,6 +30,8 @@ class ChatContainer extends Component {
 
         // Every message including message sent by the user will be received and display by this function
         Sock8.onMessagePushed(this.props.displayMessage)
+
+        // Watch user connections
         Sock8.getPresence()
              .onSync(() => this.listUsers())
     }
@@ -51,8 +53,8 @@ class ChatContainer extends Component {
 
         return (
             <Grid container spacing={16}>
-                <Grid item xs={4}>
-                    <UserList names={this.state.names} />
+                <Grid item xs={2}>
+                    <ChannelList />
                 </Grid>
 
                 <Grid item xs={8}>
@@ -60,6 +62,10 @@ class ChatContainer extends Component {
                         message_informations={message_informations} />
                     <MessageComposer
                         sendMessage={(message) => postMessage(message, userid)} />
+                </Grid>
+
+                <Grid item xs={2}>
+                    <UserList names={this.state.names} />
                 </Grid>
             </Grid>
         )

@@ -42,8 +42,8 @@ function* createUser(action) {
         };
 
         // Set to local storage
-        LocalStorage.setUserInfo(user_informations, true, 'userInformations');
-        LocalStorage.setUserInfo(keys, true, 'keyPair');
+        LocalStorage.setUserInfo(user_informations, true, 'user_informations');
+        LocalStorage.setUserInfo(keys, true, 'keys');
         LocalStorage.setUserInfo(token, true, 'token');
 
         // Update the state with user informations

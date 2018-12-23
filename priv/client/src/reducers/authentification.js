@@ -10,8 +10,8 @@ import LocalStorage from '../utils/LocalStorage';
 import { isNull } from 'lodash';
 
 // Check information in the local storage
-let user  = LocalStorage.getUserInfo('userInformations');
-let keys  = LocalStorage.getUserInfo('keyPair');
+let user  = LocalStorage.getUserInfo('user_informations');
+let keys  = LocalStorage.getUserInfo('keys');
 let token = LocalStorage.getUserInfo('token');
 
 // Initial conditions

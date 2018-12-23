@@ -11,7 +11,6 @@ import { withStyles } from '@material-ui/core/styles';
 class UserList extends Component {
 
     render () {
-
         const { classes, names } = this.props;
 
         return (
