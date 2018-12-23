@@ -10,33 +10,22 @@ import { withStyles } from '@material-ui/core/styles';
 
 class UserList extends Component {
 
-    constructor(props) {
-        super();
-        // TODO: to remove
-        var userForTest = [
-            { key: 0, name: 'nathan'},
-            { key: 1, name: 'ayla'},
-            { key: 2, name: 'thib'}
-        ]
-
-        this.state = { users: userForTest }
-    }
-
     render () {
-        const { classes } = this.props;
+
+        const { classes, names } = this.props;
 
         return (
             <List className={classes.root}>
-            {this.state.users.map( user => (
-                <ListItem key={user.key} dense button className={classes.listItem}>
-                    <ListItemText primary={`${user.name}`} />
-                    <ListItemSecondaryAction>
-                        <IconButton aria-label="Comments">
-                            <CommentIcon />
-                        </IconButton>
-                    </ListItemSecondaryAction>
-                </ListItem>
-            ))}
+                {names.map( (user, key) => (
+                    <ListItem key={key} dense button className={classes.listItem}>
+                        <ListItemText primary={`${user}`} />
+                        <ListItemSecondaryAction>
+                            <IconButton aria-label="Comments">
+                                <CommentIcon />
+                            </IconButton>
+                        </ListItemSecondaryAction>
+                    </ListItem>
+                ))}
             </List>
         );
     }

@@ -1,4 +1,4 @@
-import { Socket } from "phoenix";
+import { Socket, Presence } from "phoenix";
 import { WS_API_URL } from '../constants/constants';
 
 class Disk8Sock8 {
@@ -26,6 +26,14 @@ class Disk8Sock8 {
             .join()
             .receive("ok", () => { console.log("Joined successfully") })
             .receive("error", resp => { console.log("Unable to join", resp) })
+    }
+
+    initPresence() {
+        this.presence = new Presence(this.channel);
+    }
+
+    getPresence() {
+        return this.presence;
     }
 
     pushMessage(message, id) {

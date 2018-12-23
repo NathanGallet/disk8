@@ -15,13 +15,35 @@ import LocalStorage from '../utils/LocalStorage';
 // TODO: use grid to layout the chat properly
 class ChatContainer extends Component {
 
+    constructor (props) {
+        super();
+        this.state = {
+            names: []
+        };
+    }
+
     componentDidMount() {
         // Create connexion socket and join default channel
         Sock8.createSocket(this.props.token);
         Sock8.joinChannel(DEFAULT_CHANNEL);
+        Sock8.initPresence();
 
         // Every message including message sent by the user will be received and display by this function
         Sock8.onMessagePushed(this.props.displayMessage)
+        Sock8.getPresence()
+             .onSync(() => this.listUsers())
+    }
+
+    listUsers() {
+        let names = new Set();
+
+        Sock8.getPresence().list((name) => {
+            names.add(name)
+        })
+
+        this.setState({
+            names: Array.from(names)
+        })
     }
 
     render () {
@@ -30,7 +52,7 @@ class ChatContainer extends Component {
         return (
             <Grid container spacing={16}>
                 <Grid item xs={4}>
-                    <UserList />
+                    <UserList names={this.state.names} />
                 </Grid>
 
                 <Grid item xs={8}>
