@@ -27,9 +27,9 @@ defmodule Disk8Web.RoomChannelTest do
     user_connection(@first_user)
   end
 
-  test "new user connection to room:lobby", %{socket: socket, user: _first_user} do
+  test "new user connection to room:lobby", %{socket: socket, user: first_user} do
     push(socket, "new_user")
-    assert_broadcast("new_user", %{user: "Mr Putput"})
+    assert_broadcast("new_user", %{user: "Mr Putput", public_key: "AAAAB3NzaC1yc2EAAAADAQABAAABAQDb0kO0jaJB1f0"})
   end
 
   test "message is broadcasted to client", %{socket: first_socket, user: _first_user} do

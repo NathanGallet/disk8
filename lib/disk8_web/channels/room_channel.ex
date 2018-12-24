@@ -17,7 +17,10 @@ defmodule Disk8Web.RoomChannel do
 
   # Callback function
   def handle_in("new_user", %{}, socket) do
-    broadcast!(socket, "new_user", %{user: socket.assigns.guardian_default_resource.name})
+    name = socket.assigns.guardian_default_resource.name
+    public_key = socket.assigns.guardian_default_resource.public_key
+
+    broadcast!(socket, "new_user", %{user: name, public_key: public_key})
     {:noreply, socket}
   end
 
