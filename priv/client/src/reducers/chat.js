@@ -1,11 +1,13 @@
 import {
     DISPLAY_MESSAGE,
-    POST_MESSAGE
+    POST_MESSAGE,
+    NEW_USER
 } from '../constants/chat';
 import { concat } from 'lodash';
 
 const initialState = {
-    message_informations: []
+    message_informations: [],
+    users_informations: new Set()
 };
 
 export default (state = initialState, action) => {
@@ -23,6 +25,16 @@ export default (state = initialState, action) => {
         }
         case POST_MESSAGE: {
             return state;
+        }
+
+        case NEW_USER: {
+            return {
+                ...state,
+                user_informations: state.users_informations.add({
+                    user: action.user,
+                    public_key: action.public_key
+                })
+            }
         }
 
         default:

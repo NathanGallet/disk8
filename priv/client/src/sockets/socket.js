@@ -26,6 +26,7 @@ class Disk8Sock8 {
             .join()
             .receive("ok", () => { console.log("Joined successfully") })
             .receive("error", resp => { console.log("Unable to join", resp) })
+
     }
 
     initPresence() {
@@ -34,6 +35,10 @@ class Disk8Sock8 {
 
     getPresence() {
         return this.presence;
+    }
+
+    pushNewUser() {
+        this.channel.push("new_user");
     }
 
     pushMessage(message, id) {
@@ -48,6 +53,12 @@ class Disk8Sock8 {
     onMessagePushed(callbackFunction) {
         this.channel.on("message", payload => {
             callbackFunction(payload.message, payload.user)
+        })
+    }
+
+    onNewUser(callbackFunction) {
+        this.channel.on("new_user", payload => {
+            callbackFunction(payload.user, payload.public_key)
         })
     }
 }

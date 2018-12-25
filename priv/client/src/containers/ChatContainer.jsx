@@ -27,9 +27,11 @@ class ChatContainer extends Component {
         Sock8.createSocket(this.props.token);
         Sock8.joinChannel(DEFAULT_CHANNEL);
         Sock8.initPresence();
+        Sock8.pushNewUser();
 
         // Every message including message sent by the user will be received and display by this function
-        Sock8.onMessagePushed(this.props.displayMessage)
+        Sock8.onMessagePushed(this.props.displayMessage);
+        Sock8.onNewUser(this.props.registerNewUser);
 
         // Watch user connections
         Sock8.getPresence()
@@ -78,10 +80,10 @@ const styles = theme => ({
 
 const mapStateToProps = state => {
     return {
-        message_informations : state.chat.message_informations,
-        userid               : state.authentification.userid,
-        user_name            : state.authentification.user_name,
-        token                : state.authentification.token
+        message_informations: state.chat.message_informations,
+        userid: state.authentification.userid,
+        user_name: state.authentification.user_name,
+        token: state.authentification.token
     };
 }
 

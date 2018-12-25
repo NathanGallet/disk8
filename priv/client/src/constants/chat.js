@@ -1,7 +1,9 @@
 const DISPLAY_MESSAGE = 'DISPLAY_MESSAGE';
 const POST_MESSAGE    = 'POST_MESSAGE';
+const NEW_USER        = 'NEW_USER';
 
 export {
     DISPLAY_MESSAGE,
-    POST_MESSAGE
+    POST_MESSAGE,
+    NEW_USER
 };
