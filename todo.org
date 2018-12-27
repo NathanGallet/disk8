@@ -9,7 +9,7 @@
 - [ ] track token using :esp
 - [ ] deployment on heroku
 
-* Client [20%]
+* Client [30%]
 - [X] update jwt connections (1)
 - [ ] implements call /api/user/login
   - Method: POST
@@ -26,5 +26,6 @@
 - [ ] better handle of private route (call ws to check if token authorized)
 - [ ] crypted messages
 - [ ] add notification system (error handler + informations)
-- [ ] implements client new server action
-- [ ] channel list
+- [ ] add to crypto.js function encrypt and decrypt
+- [X] implements client new server action
+- [X] channel list

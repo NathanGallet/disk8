@@ -1,5 +1,6 @@
 import { Socket, Presence } from "phoenix";
 import { WS_API_URL } from '../constants/constants';
+import { CryptedDisk8 } from '../utils/crypto';
 
 class Disk8Sock8 {
 
@@ -37,6 +38,9 @@ class Disk8Sock8 {
         return this.presence;
     }
 
+    /*********************
+     *** Channels Push ***
+     *********************/
     pushNewUser(is_first_user) {
         this.channel.push("new_user", {is_first_user: is_first_user})
     }
@@ -50,6 +54,10 @@ class Disk8Sock8 {
         return this.channel.push("message", parameters);
     }
 
+
+    /**************************
+     *** Channels Callbacks ***
+     **************************/
     onMessagePushed(callbackFunction) {
         this.channel.on("message", payload => {
             callbackFunction(payload.message, payload.user)
