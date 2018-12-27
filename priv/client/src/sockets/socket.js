@@ -37,8 +37,8 @@ class Disk8Sock8 {
         return this.presence;
     }
 
-    pushNewUser() {
-        this.channel.push("new_user");
+    pushNewUser(is_first_user) {
+        this.channel.push("new_user", {is_first_user: is_first_user})
     }
 
     pushMessage(message, id) {
@@ -58,7 +58,10 @@ class Disk8Sock8 {
 
     onNewUser(callbackFunction) {
         this.channel.on("new_user", payload => {
-            callbackFunction(payload.user, payload.public_key)
+            callbackFunction(payload.user, payload.public_key);
+            if (payload.is_first_user) {
+                this.pushNewUser(false);
+            }
         })
     }
 }

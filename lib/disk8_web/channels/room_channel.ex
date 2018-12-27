@@ -16,11 +16,11 @@ defmodule Disk8Web.RoomChannel do
   end
 
   # Callback function
-  def handle_in("new_user", nil, socket) do
+  def handle_in("new_user", %{"is_first_user" => is_first_user}, socket) do
     name = socket.assigns.guardian_default_resource.name
     public_key = socket.assigns.guardian_default_resource.public_key
 
-    broadcast_from!(socket, "new_user", %{user: name, public_key: public_key})
+    broadcast_from!(socket, "new_user", %{user: name, public_key: public_key, is_first_user: is_first_user})
     {:noreply, socket}
   end
 

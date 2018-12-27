@@ -27,7 +27,7 @@ class ChatContainer extends Component {
         Sock8.createSocket(this.props.token);
         Sock8.joinChannel(DEFAULT_CHANNEL);
         Sock8.initPresence();
-        Sock8.pushNewUser();
+        Sock8.pushNewUser(true);
 
         // Every message including message sent by the user will be received and display by this function
         Sock8.onMessagePushed(this.props.displayMessage);
@@ -63,7 +63,7 @@ class ChatContainer extends Component {
                     <MessageBoard
                         message_informations={message_informations} />
                     <MessageComposer
-                        sendMessage={(message) => postMessage(message, userid)} />
+                        sendMessage={(message) => Sock8.pushMessage(message, userid)} />
                 </Grid>
 
                 <Grid item xs={2}>
@@ -81,6 +81,7 @@ const styles = theme => ({
 const mapStateToProps = state => {
     return {
         message_informations: state.chat.message_informations,
+        users_informations: state.chat.users_informations,
         userid: state.authentification.userid,
         user_name: state.authentification.user_name,
         token: state.authentification.token
