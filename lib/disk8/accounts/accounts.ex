@@ -5,8 +5,9 @@ defmodule Disk8.Accounts do
   """
 
   import Ecto.Query, warn: false
-  alias Disk8.Repo
 
+  alias Disk8.Repo
+  alias Disk8.Accounts.Authentification
   alias Disk8.Accounts.User
 
   def list_users do
@@ -18,6 +19,7 @@ defmodule Disk8.Accounts do
   def create_user(attrs \\ %{}) do
     %User{}
     |> User.changeset(attrs)
+    |> Authentification.hash_password()
     |> Repo.insert()
   end
 

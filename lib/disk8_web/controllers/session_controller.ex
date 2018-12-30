@@ -5,11 +5,12 @@ defmodule Disk8Web.SessionController do
 
   action_fallback(Disk8Web.FallbackController)
 
-  def create(conn, params) do
-    case Authentification.find_user_and_check_password(params) do
+  def create(conn, param) do
+    case Authentification.find_user_and_check_password(param) do
       {:ok, user} ->
         {:ok, jwt, _full_claims} =
           user |> Disk8Web.Guardian.encode_and_sign(%{}, token_type: :token)
+
         conn
         |> put_status(:created)
         |> put_view(Disk8Web.UserView)
@@ -17,7 +18,7 @@ defmodule Disk8Web.SessionController do
 
       {:error, message} ->
         conn
-        |> put_status(401)
+        |> put_status(:unauthorized)
         |> put_view(Disk8Web.UserView)
         |> render("error.json", message: message)
     end

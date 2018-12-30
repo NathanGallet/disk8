@@ -1,7 +1,9 @@
 defmodule Disk8Web.SessionControllerTest do
   use Disk8Web.ConnCase
-
   alias Disk8.Accounts
+
+  # Test all test writed in Redix module
+  doctest Disk8Web.Redix
 
   @fixture_create_user %{
     name: "Name",

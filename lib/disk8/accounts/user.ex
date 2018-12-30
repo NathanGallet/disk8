@@ -5,7 +5,6 @@ defmodule Disk8.Accounts.User do
   """
   use Ecto.Schema
   import Ecto.Changeset
-  alias Disk8.Accounts.Authentification
 
   @required_fields ~w(name password public_key private_key)a
 
@@ -23,6 +22,5 @@ defmodule Disk8.Accounts.User do
     |> cast(attrs, @required_fields)
     |> validate_required(@required_fields)
     |> unique_constraint(:name)
-    |> Authentification.hash_password
   end
 end

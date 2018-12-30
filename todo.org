@@ -1,12 +1,12 @@
-* Server [37%]
+* Server [55%]
 - [X] add guardian to endpoints and tests
 - [X] add guardian to channels
 - [X] update phoenix from 1.3 to 1.4 (https://gist.github.com/chrismccord/bb1f8b136f5a9e4abc0bfc07b832257e)
+- [X] update documentation
+- [X] create cache with redis
 - [ ] better security, you can get everybody informations asa your logged
 - [ ] add new functions to channels + tests
-- [ ] update documentation
-- [ ] create cache database with genserver, otp, esp
-- [ ] track token using :esp
+- [ ] track token
 - [ ] deployment on heroku
 
 * Client [30%]

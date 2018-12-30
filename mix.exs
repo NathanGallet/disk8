@@ -48,6 +48,7 @@ defmodule Disk8.MixProject do
       {:guardian, "~> 1.0"},
       {:plug, "~> 1.0"},
       {:corsica, "~> 1.0"},
+      {:redix, ">= 0.0.0"},
       {:comeonin, "~> 4.0"},
       {:bcrypt_elixir, "~> 0.12"},
       {:credo, "~> 0.9.1", only: [:dev, :test], runtime: false},
