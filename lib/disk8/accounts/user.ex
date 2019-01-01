@@ -9,7 +9,7 @@ defmodule Disk8.Accounts.User do
   @required_fields ~w(name password public_key private_key)a
 
   schema "users" do
-    field :name, :string
+    field(:name, :string)
     field(:password, :string)
     field(:public_key, :string)
     field(:private_key, :string)

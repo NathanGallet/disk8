@@ -45,7 +45,6 @@ class UserRequests {
     getAll() {
         return Requests.get(`/users`);
     }
-
 }
 
 export default new UserRequests();

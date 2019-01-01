@@ -1,7 +1,5 @@
 import { HTTP_API_URL } from '../constants/constants';
 
-const responseBody = res => res.body;
-
 // Simple Request Manager to handle CRUD actions
 // TODO: need to set options on headers but content-type make allow-access policy problem
 class RequestsManager {

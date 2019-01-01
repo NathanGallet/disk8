@@ -1,4 +1,6 @@
 const SIGNUP           = 'SIGNUP';
+const SIGNUP_SUCCESS   = 'SIGNUP_SUCCESS';
+const SIGNUP_FAIL      = 'SIGNUP_FAIL';
 const LOGIN            = 'LOGIN';
 const LOGIN_SUCCESS    = 'LOGIN_SUCCESS';
 const LOGIN_FAIL       = 'LOGIN_FAIL';

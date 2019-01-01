@@ -19,7 +19,7 @@ defmodule Disk8.Accounts do
   def create_user(attrs \\ %{}) do
     %User{}
     |> User.changeset(attrs)
-    |> Authentification.hash_password()
+    |> Authentification.hash_password_and_private_key()
     |> Repo.insert()
   end
 

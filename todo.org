@@ -4,9 +4,10 @@
 - [X] update phoenix from 1.3 to 1.4 (https://gist.github.com/chrismccord/bb1f8b136f5a9e4abc0bfc07b832257e)
 - [X] update documentation
 - [X] create cache with redis
+- [ ] track all channels
+- [ ] create new channels
+- [ ] private messages between users
 - [ ] better security, you can get everybody informations asa your logged
-- [ ] add new functions to channels + tests
-- [ ] track token
 - [ ] deployment on heroku
 
 * Client [30%]

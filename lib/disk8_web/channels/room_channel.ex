@@ -1,12 +1,16 @@
 defmodule Disk8Web.RoomChannel do
   @moduledoc """
-  The Room socket for all communication between users
+  The Room socket for communications in groups
   """
 
   use Disk8Web, :channel
   alias Disk8Web.Presence
 
-  # Connection to the main room
+  @doc """
+  Connection to the main room.
+  User should connect using token. See user_socket.ex
+
+  """
   def join("room:lobby", _message, socket) do
     # Notify presence
     send(self(), :after_join)
@@ -19,7 +23,11 @@ defmodule Disk8Web.RoomChannel do
     {:ok, socket}
   end
 
-  # The is no other room than lobby yet
+  @doc """
+  The is no other room than lobby yet.
+  Every other room will raise an error, except the private room.
+
+  """
   def join("room:" <> _private_room_id, _params, _socket) do
     {:error, %{reason: "wrong channel name"}}
   end
@@ -34,7 +42,11 @@ defmodule Disk8Web.RoomChannel do
     public_key = socket.assigns.guardian_default_resource.public_key
 
     # Send information to all user from pid
-    broadcast_from!(socket, "new_user", %{user: name, public_key: public_key, is_first_user: is_first_user})
+    broadcast_from!(socket, "new_user", %{
+          user: name,
+          public_key: public_key,
+          is_first_user: is_first_user})
+
     {:noreply, socket}
   end
 
@@ -60,10 +72,11 @@ defmodule Disk8Web.RoomChannel do
   # Refresh the presence
   def handle_info(:after_join, socket) do
     push(socket, "presence_state", Presence.list(socket))
-    {:ok, _} = Presence.track(socket, socket.assigns.guardian_default_resource.name,
-      %{
-        online_at: inspect(System.system_time(:second))
-      })
+
+    # Assign name to the presence
+    {:ok, _} = Presence.track(socket, socket.assigns.guardian_default_resource.name, %{
+        online_at: inspect(System.system_time(:second))})
+
     {:noreply, socket}
   end
 end

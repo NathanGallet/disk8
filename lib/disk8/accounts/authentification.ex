@@ -36,13 +36,15 @@ defmodule Disk8.Accounts.Authentification do
   changes - The changes from parameters that were approved in casting
 
   """
-  def hash_password(changeset) do
+  def hash_password_and_private_key(changeset) do
     case changeset do
       %Ecto.Changeset{
         valid?: true,
-        changes: %{password: pass}
+        changes: %{password: pass, private_key: key}
       } ->
-        put_change(changeset, :password, Encryption.password_hashing(pass))
+        changeset
+        |> put_change(:password, Encryption.hashing(pass))
+        |> put_change(:private_key, Encryption.hashing(key))
 
       _ ->
         changeset
