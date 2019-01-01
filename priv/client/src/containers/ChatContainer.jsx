@@ -5,6 +5,7 @@ import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { withStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
+import { withSnackbar } from 'notistack';
 
 import * as actions from '../actions/chat';
 import { MessageBoard, MessageComposer, UserList, ChannelList } from '../components';
@@ -92,4 +93,4 @@ const mapDispatchToProps = dispatch => {
     return bindActionCreators(actions, dispatch)
 }
 
-export default withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(ChatContainer));
+export default withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(withSnackbar(ChatContainer)));

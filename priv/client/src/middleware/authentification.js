@@ -58,10 +58,10 @@ function* createUser(action) {
         yield put(tokenCreated(token));
 
         // Redirect to /
-        /* yield put(push('/')); */
+        yield put(push('/'));
 
-    } catch (e) {
-        yield put(signupFailure(e));
+    } catch (error) {
+        yield put(signupFailure(error));
     }
 }
 
@@ -97,8 +97,8 @@ function* login(action) {
         // Redirect to /
         yield put(push('/'));
 
-    } catch (e) {
-        yield put(loginFailure(e));
+    } catch (error) {
+        yield put(loginFailure(error));
     }
 }
 

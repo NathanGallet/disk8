@@ -6,9 +6,10 @@ import { withStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Grid from '@material-ui/core/Grid';
+import { withSnackbar } from 'notistack';
 
 import * as actions from '../actions/authentification';
-import { trim } from 'lodash';
+import { trim, isNull } from 'lodash';
 
 class LoginContainer extends Component {
 
@@ -30,6 +31,16 @@ class LoginContainer extends Component {
 
     handleButtonPressed() {
         this.props.login(this.state)
+    }
+
+    // TODO: should not put the notification here x)
+    componentDidUpdate() {
+        if (isNull(this.props.error)) {
+            return;
+        }
+
+        this.props.enqueueSnackbar(this.props.error, {variant: 'error'})
+        this.props.resetError();
     }
 
     render () {
@@ -98,8 +109,14 @@ const styles = theme => ({
     },
 });
 
+const mapStateToProps = state => {
+    return {
+        error: state.authentification.error
+    };
+}
+
 const mapDispatchToProps = dispatch => {
     return bindActionCreators(actions, dispatch)
 }
 
-export default withStyles(styles)(connect(null, mapDispatchToProps)(LoginContainer));
+export default withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(withSnackbar(LoginContainer)));

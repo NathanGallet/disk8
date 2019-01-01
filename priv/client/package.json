@@ -12,6 +12,7 @@
         "@material-ui/icons": "^1.1.0",
         "history": "^4.7.2",
         "lodash": "^4.17.10",
+        "notistack": "^0.4.1",
         "openpgp": "^4.2.1",
         "phoenix": "^1.3.0",
         "react": "^16.4.0",

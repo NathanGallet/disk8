@@ -3,8 +3,11 @@ import {
     LOGIN_SUCCESS,
     LOGIN_FAIL,
     LOGIN,
+    SIGNUP_SUCCESS,
+    SIGNUP_FAIL,
     SIGNUP,
-    TOKEN_CREATED
+    TOKEN_CREATED,
+    RESET_ERROR
 } from '../constants/authentification';
 import LocalStorage from '../utils/LocalStorage';
 import { isNull } from 'lodash';
@@ -41,6 +44,21 @@ export default (state = initialState, action) => {
             }
         }
 
+        case SIGNUP_SUCCESS: {
+            return {
+                ...state,
+                user_name: action.payload.name,
+                userid : action.payload.id
+            }
+        }
+
+        case SIGNUP_FAIL: {
+            return {
+                ...state,
+                error: action.payload.error
+            }
+        }
+
         case KEY_PAIR_CREATED: {
             return {
                 ...state,
@@ -53,6 +71,13 @@ export default (state = initialState, action) => {
             return {
                 ...state,
                 token: action.payload.token
+            }
+        }
+
+        case RESET_ERROR: {
+            return {
+                ...state,
+                error: action.payload.error
             }
         }
 

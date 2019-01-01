@@ -7,7 +7,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Grid from '@material-ui/core/Grid';
 import Snackbar from '@material-ui/core/Snackbar';
-import { size, trim } from 'lodash';
+import { size, trim, isNull } from 'lodash';
+import { withSnackbar } from 'notistack';
 
 import * as actions from '../actions/authentification';
 import CryptedDisk8 from '../utils/crypto';
@@ -30,7 +31,6 @@ class SignUpContainer extends Component {
         this.handleChangePseudo               = this.handleChangePseudo.bind(this);
         this.handleChangePassword             = this.handleChangePassword.bind(this);
         this.handleChangePasswordVerification = this.handleChangePasswordVerification.bind(this);
-        this.handleKeyPress                   = this.handleKeyPress.bind(this);
         this.handleButtonPressed              = this.handleButtonPressed.bind(this);
     }
 
@@ -63,11 +63,13 @@ class SignUpContainer extends Component {
         }
     }
 
-    handleKeyPress(event) {
-        if(event.key != 'Enter') {
+    componentDidUpdate() {
+        if (isNull(this.props.error)) {
             return;
         }
-        this.submitForm(this.state.username, event)
+
+        this.props.enqueueSnackbar(this.props.error, {variant: 'error'})
+        this.props.resetError();
     }
 
     handleButtonPressed( event ) {
@@ -125,7 +127,6 @@ class SignUpContainer extends Component {
                         type         = "text"
                         autoComplete = "username"
                         margin       = "normal"
-                        onKeyPress   = {this.handleKeyPress}
                         onChange     = {this.handleChangePseudo} />
                     <TextField
                         label        = "Password"
@@ -185,7 +186,8 @@ const styles = theme => ({
 const mapStateToProps = state => {
     return {
         userid: state.authentification.userid,
-        user_name: state.authentification.user_name
+        user_name: state.authentification.user_name,
+        error: state.authentification.error
     };
 }
 
@@ -193,4 +195,4 @@ const mapDispatchToProps = dispatch => {
     return bindActionCreators(actions, dispatch)
 }
 
-export default withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(SignUpContainer));
+export default withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(withSnackbar(SignUpContainer)));

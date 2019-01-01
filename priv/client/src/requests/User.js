@@ -20,7 +20,7 @@ class UserRequests {
             .then(
                 response => {
                     if (response.status != STATUS_SUCCESS_CREATED) {
-                        throw response;
+                        throw response.statusText;
                     }
                     return response.json();
                 });

@@ -8,7 +8,8 @@ import {
     LOGIN_SUCCESS,
     LOGIN_FAIL,
     KEY_PAIR_CREATED,
-    TOKEN_CREATED
+    TOKEN_CREATED,
+    RESET_ERROR
 } from '../constants/authentification';
 
 
@@ -31,8 +32,10 @@ function loginSuccess(user_informations) {
 
 function loginFailure(error) {
     return {
-        type: LOGIN_FAILURE,
-        payload: error
+        type: LOGIN_FAIL,
+        payload: {
+            error
+        }
     };
 }
 
@@ -58,8 +61,10 @@ function signupSuccess(user_informations) {
 
 function signupFailure(error) {
     return {
-        type: SIGNUP_FAILURE,
-        payload: error
+        type: SIGNUP_FAIL,
+        payload: {
+            error
+        }
     };
 }
 
@@ -73,6 +78,15 @@ function keyPairCreated(private_key, public_key) {
     };
 }
 
+function resetError() {
+    return {
+        type: RESET_ERROR,
+        payload: {
+            error: null
+        }
+    }
+}
+
 function tokenCreated(token) {
     return {
         type: TOKEN_CREATED,
@@ -84,9 +98,12 @@ function tokenCreated(token) {
 
 export {
     signup,
+    signupSuccess,
+    signupFailure,
     login,
     loginSuccess,
     loginFailure,
     keyPairCreated,
-    tokenCreated
+    tokenCreated,
+    resetError
 };
