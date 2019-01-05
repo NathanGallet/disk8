@@ -4,6 +4,7 @@ defmodule Disk8.Accounts.User do
 
   """
   use Ecto.Schema
+  alias Disk8.Chat.JoinedChannel
   import Ecto.Changeset
 
   @required_fields ~w(name password public_key private_key)a
@@ -14,6 +15,7 @@ defmodule Disk8.Accounts.User do
     field(:public_key, :string)
     field(:private_key, :string)
 
+    has_many(:user, JoinedChannel)
     timestamps()
   end
 
