@@ -1,5 +1,10 @@
 # Disk8
 
+#### Informations
+
+We developed the proof of concept in node.js with the 2 others contributors. But we wanted something with a better UI and add functionnality.
+In the meantime, I wanted to discover Phoenix/Elixir. So this project is not finished (and perhaps will never be).
+
 #### Requirements
   * A postgresql database with user
   * Elixir and Phoenix
