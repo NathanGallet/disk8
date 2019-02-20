@@ -4,7 +4,7 @@ import {
     NEW_USER
 } from '../constants/chat';
 
-function displayMessage(message, author) {
+const displayMessage = (message, author) => {
     return {
         type: DISPLAY_MESSAGE,
         message,
@@ -12,7 +12,7 @@ function displayMessage(message, author) {
     };
 }
 
-function registerNewUser(user, public_key) {
+const registerNewUser = (user, public_key) => {
     return {
         type: NEW_USER,
         user,

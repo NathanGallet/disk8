@@ -4,15 +4,16 @@
 - [X] update phoenix from 1.3 to 1.4 (https://gist.github.com/chrismccord/bb1f8b136f5a9e4abc0bfc07b832257e)
 - [X] update documentation
 - [X] create cache with redis
+- [ ] update private/public key on login
 - [ ] track all channels
 - [ ] create new channels
 - [ ] private messages between users
 - [ ] better security, you can get everybody informations asa your logged
 - [ ] deployment on heroku
 
-* Client [30%]
+* Client [45%]
 - [X] update jwt connections (1)
-- [ ] implements call /api/user/login
+- [X] implements call /api/user/login
   - Method: POST
   - Endpoint : /api/user/login
   - Body :{
@@ -21,12 +22,13 @@
         "password": "iopiop"
       }
     }
+- [X] add notification system (error handler + informations)
+- [X] implements client new server action
+- [X] channel list
 - [ ] implements call /api/user/logout (not ready)
 - [ ] change css login page
 - [ ] error gestion on requests/user
 - [ ] better handle of private route (call ws to check if token authorized)
 - [ ] crypted messages
-- [ ] add notification system (error handler + informations)
 - [ ] add to crypto.js function encrypt and decrypt
-- [X] implements client new server action
-- [X] channel list
+- [ ] debug login, no public/private key in localstorage

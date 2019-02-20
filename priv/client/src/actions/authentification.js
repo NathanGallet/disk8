@@ -13,7 +13,7 @@ import {
 } from '../constants/authentification';
 
 
-function login(user_informations) {
+const login = (user_informations) => {
     return {
         type: LOGIN,
         payload: {
@@ -23,14 +23,14 @@ function login(user_informations) {
     };
 }
 
-function loginSuccess(user_informations) {
+const loginSuccess = (user_informations) => {
     return {
         type: LOGIN_SUCCESS,
         payload: user_informations
     };
 }
 
-function loginFailure(error) {
+const loginFailure = (error) => {
     return {
         type: LOGIN_FAIL,
         payload: {
@@ -40,7 +40,7 @@ function loginFailure(error) {
 }
 
 
-function signup(user_informations) {
+const signup = (user_informations) => {
     return {
         type: SIGNUP,
         payload: {
@@ -52,14 +52,14 @@ function signup(user_informations) {
     };
 }
 
-function signupSuccess(user_informations) {
+const signupSuccess = (user_informations) => {
     return {
         type: SIGNUP_SUCCESS,
         payload: user_informations
     };
 }
 
-function signupFailure(error) {
+const signupFailure = (error) => {
     return {
         type: SIGNUP_FAIL,
         payload: {
@@ -68,7 +68,7 @@ function signupFailure(error) {
     };
 }
 
-function keyPairCreated(private_key, public_key) {
+const keyPairCreated = (private_key, public_key) => {
     return {
         type: KEY_PAIR_CREATED,
         payload: {
@@ -78,7 +78,7 @@ function keyPairCreated(private_key, public_key) {
     };
 }
 
-function resetError() {
+const resetError = () => {
     return {
         type: RESET_ERROR,
         payload: {
@@ -87,7 +87,7 @@ function resetError() {
     }
 }
 
-function tokenCreated(token) {
+const tokenCreated = (token) => {
     return {
         type: TOKEN_CREATED,
         payload: {

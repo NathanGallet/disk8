@@ -40,7 +40,8 @@ function* createUser(action) {
         };
         let user_informations = {
             id,
-            name
+            name,
+            password
         };
 
         // Set to local storage
@@ -81,7 +82,8 @@ function* login(action) {
         let { id, token } = response.user;
         let user_informations = {
             id,
-            name
+            name,
+            password
         };
 
         // Set to local storage

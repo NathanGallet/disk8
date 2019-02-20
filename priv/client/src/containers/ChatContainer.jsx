@@ -52,7 +52,7 @@ class ChatContainer extends Component {
     }
 
     render () {
-        const { classes, message_informations, postMessage, userid } = this.props;
+        const { classes, message_informations, postMessage, userid, private_key, public_key, users_informations } = this.props;
 
         return (
             <Grid container spacing={16}>
@@ -64,7 +64,7 @@ class ChatContainer extends Component {
                     <MessageBoard
                         message_informations={message_informations} />
                     <MessageComposer
-                        sendMessage={(message) => Sock8.pushMessage(message, userid)} />
+                        sendMessage={(message) => Sock8.pushMessage(message, userid, private_key, public_key, users_informations.password)} />
                 </Grid>
 
                 <Grid item xs={2}>
@@ -85,7 +85,9 @@ const mapStateToProps = state => {
         users_informations: state.chat.users_informations,
         userid: state.authentification.userid,
         user_name: state.authentification.user_name,
-        token: state.authentification.token
+        token: state.authentification.token,
+        private_key: state.authentification.private_key,
+        public_key: state.authentification.public_key
     };
 }
 

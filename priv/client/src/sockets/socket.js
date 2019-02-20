@@ -1,6 +1,7 @@
 import { Socket, Presence } from "phoenix";
+
 import { WS_API_URL } from '../constants/constants';
-import { CryptedDisk8 } from '../utils/crypto';
+import CryptedDisk8   from '../utils/crypto';
 
 class Disk8Sock8 {
 
@@ -45,13 +46,13 @@ class Disk8Sock8 {
         this.channel.push("new_user", {is_first_user: is_first_user})
     }
 
-    pushMessage(message, id) {
-        let parameters = {
-            id,
-            message
-        }
-
-        return this.channel.push("message", parameters);
+    pushMessage(cleared_message, id, private_key, public_key, password) {
+        CryptedDisk8
+            .encryptMessage(cleared_message, private_key, public_key, password)
+            .then((message) => {
+                const parameters = { id, message }
+                return this.channel.push("message", parameters);
+            })
     }
 
 
