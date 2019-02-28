@@ -1,17 +1,17 @@
-import React, { Component } from 'react';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import { withStyles } from '@material-ui/core/styles';
-import CircularProgress from '@material-ui/core/CircularProgress';
-import { connect } from 'react-redux';
+import React, { Component }   from 'react';
+import Button                 from '@material-ui/core/Button';
+import TextField              from '@material-ui/core/TextField';
+import { withStyles }         from '@material-ui/core/styles';
+import CircularProgress       from '@material-ui/core/CircularProgress';
+import { connect }            from 'react-redux';
 import { bindActionCreators } from 'redux';
-import Grid from '@material-ui/core/Grid';
-import Snackbar from '@material-ui/core/Snackbar';
+import Grid                   from '@material-ui/core/Grid';
+import Snackbar               from '@material-ui/core/Snackbar';
 import { size, trim, isNull } from 'lodash';
-import { withSnackbar } from 'notistack';
+import { withSnackbar }       from 'notistack';
 
-import * as actions from '../actions/authentification';
-import CryptedDisk8 from '../utils/crypto';
+import * as actions                                         from '../actions/authentification';
+import CryptedDisk8                                         from '../utils/Crypto';
 import { KEY_NOT_GENERATED, KEY_GENERATING, KEY_GENERATED } from '../constants/constants';
 
 class SignUpContainer extends Component {
@@ -30,8 +30,8 @@ class SignUpContainer extends Component {
 
         this.handleChangePseudo               = this.handleChangePseudo.bind(this);
         this.handleChangePassword             = this.handleChangePassword.bind(this);
-        this.handleChangePasswordVerification = this.handleChangePasswordVerification.bind(this);
         this.handleButtonPressed              = this.handleButtonPressed.bind(this);
+        this.handleChangePasswordVerification = this.handleChangePasswordVerification.bind(this);
     }
 
 

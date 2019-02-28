@@ -1,5 +1,5 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
-import { push } from 'react-router-redux';
+import { push }                  from 'react-router-redux';
 
 import {
     loginSuccess,
@@ -12,10 +12,10 @@ import {
 import {
     SIGNUP,
     LOGIN
-} from '../constants/authentification';
+}                   from '../constants/authentification';
 import LocalStorage from '../utils/LocalStorage';
-import User from '../requests/User';
-import Session from '../requests/Session';
+import User         from '../requests/User';
+import Session      from '../requests/Session';
 
 // Worker Saga: will be fired on SIGNUP actions
 function* createUser(action) {

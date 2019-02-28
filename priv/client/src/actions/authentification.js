@@ -1,5 +1,3 @@
-import { UserRequests } from '../requests';
-
 import {
     SIGNUP,
     SIGNUP_SUCCESS,
@@ -10,7 +8,8 @@ import {
     KEY_PAIR_CREATED,
     TOKEN_CREATED,
     RESET_ERROR
-} from '../constants/authentification';
+}                       from '../constants/authentification';
+import { UserRequests } from '../requests';
 
 
 const login = (user_informations) => {

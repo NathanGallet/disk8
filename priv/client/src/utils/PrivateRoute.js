@@ -1,7 +1,7 @@
-import React from 'react';
+import React               from 'react';
 import { Redirect, Route } from 'react-router-dom';
-import LocalStorage from './LocalStorage';
-import { isNull } from 'lodash';
+import LocalStorage        from './LocalStorage';
+import { isNull }          from 'lodash';
 
 // TODO: Check token instead of userInformations and use webservice to check token validity
 const PrivateRoute = ({ component: Component, ...othersProps }) => (

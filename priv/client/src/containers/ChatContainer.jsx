@@ -1,17 +1,19 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { Component }   from 'react';
+import { connect }            from 'react-redux';
 import { bindActionCreators } from 'redux';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import { withStyles } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
-import { withSnackbar } from 'notistack';
+import Button                 from '@material-ui/core/Button';
+import TextField              from '@material-ui/core/TextField';
+import { withStyles }         from '@material-ui/core/styles';
+import Grid                   from '@material-ui/core/Grid';
+import { withSnackbar }       from 'notistack';
 
-import * as actions from '../actions/chat';
+import * as actions                                             from '../actions/chat';
 import { MessageBoard, MessageComposer, UserList, ChannelList } from '../components';
-import Sock8 from '../sockets/socket';
-import { DEFAULT_CHANNEL } from '../constants/constants';
-import LocalStorage from '../utils/LocalStorage';
+import Sock8                                                    from '../utils/Socket';
+import { DEFAULT_CHANNEL }                                      from '../constants/constants';
+import LocalStorage                                             from '../utils/LocalStorage';
+import CryptedDisk8                                             from '../utils/Crypto';
+import { getUserPublicKey }                                     from '../utils/Helper';
 
 // TODO: use grid to layout the chat properly
 class ChatContainer extends Component {
@@ -30,8 +32,12 @@ class ChatContainer extends Component {
         Sock8.initPresence();
         Sock8.pushNewUser(true);
 
-        // Every message including message sent by the user will be received and display by this function
-        Sock8.onMessagePushed(this.props.displayMessage);
+        // bind this to displayMessage
+        this.displayMessage = this.displayMessage.bind(this);
+
+        // Every message including message sent by the user will
+        // be received and display by this function
+        Sock8.onMessagePushed(this.displayMessage);
         Sock8.onNewUser(this.props.registerNewUser);
 
         // Watch user connections
@@ -39,20 +45,34 @@ class ChatContainer extends Component {
              .onSync(() => this.listUsers())
     }
 
+    displayMessage(encrypted_message, author) {
+        const public_key = getUserPublicKey(author, this.props.users_informations);
+
+        CryptedDisk8
+               .descryptMessage(encrypted_message, this.props.private_key, public_key)
+               .then((message, author) => {
+                   this.props.displayMessage(message)
+               })
+    }
+
     listUsers() {
         let names = new Set();
-
         Sock8.getPresence().list((name) => {
             names.add(name)
         })
+        this.setState({ names: Array.from(names) })
+    }
 
-        this.setState({
-            names: Array.from(names)
-        })
+    cryptMessageAndPush(message) {
+        let { private_key, public_key, users_informations, userid } = this.props;
+
+        CryptedDisk8
+             .encryptMessage(message, private_key, public_key, users_informations.password)
+             .then((message) => Sock8.pushMessage(message, userid))
     }
 
     render () {
-        const { classes, message_informations, postMessage, userid, private_key, public_key, users_informations } = this.props;
+        const { classes, message_informations } = this.props;
 
         return (
             <Grid container spacing={16}>
@@ -64,7 +84,7 @@ class ChatContainer extends Component {
                     <MessageBoard
                         message_informations={message_informations} />
                     <MessageComposer
-                        sendMessage={(message) => Sock8.pushMessage(message, userid, private_key, public_key, users_informations.password)} />
+                        sendMessage={(message) => this.cryptMessageAndPush(message)} />
                 </Grid>
 
                 <Grid item xs={2}>

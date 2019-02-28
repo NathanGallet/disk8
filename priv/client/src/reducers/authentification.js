@@ -8,9 +8,9 @@ import {
     SIGNUP,
     TOKEN_CREATED,
     RESET_ERROR
-} from '../constants/authentification';
+}                   from '../constants/authentification';
 import LocalStorage from '../utils/LocalStorage';
-import { isNull } from 'lodash';
+import { isNull }   from 'lodash';
 
 // Check information in the local storage
 let user  = LocalStorage.getUserInfo('user_informations');

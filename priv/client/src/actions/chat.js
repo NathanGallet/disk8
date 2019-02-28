@@ -1,4 +1,3 @@
-import Sock8 from '../sockets/socket';
 import {
     DISPLAY_MESSAGE,
     NEW_USER

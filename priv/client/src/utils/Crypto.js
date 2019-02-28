@@ -29,11 +29,11 @@ class CryptedDisk8 {
 
     async encryptMessage(message, private_key, public_key, password) {
 
-        const privKeyObj = (await OpenPGP.key.readArmored(private_key)).keys[0]
+        const private_key_object = (await OpenPGP.key.readArmored(private_key)).keys[0]
         const options    = {
             message: OpenPGP.message.fromText(message),                   // input as Message object
             publicKeys: (await OpenPGP.key.readArmored(public_key)).keys, // for encryption
-            privateKeys: [privKeyObj]                                     // for signing (optional)
+            privateKeys: [private_key_object]                             // for signing (optional)
         }
 
         return new Promise((resolve, reject) => {
@@ -43,9 +43,27 @@ class CryptedDisk8 {
         })
     }
 
-    /* async descryptMessage() {
+    async descryptMessage(encrypted_message, private_key, public_key) {
+        console.log('public_key', public_key)
 
-     * } */
+
+        const options = {
+            message: await OpenPGP.message.readArmored(encrypted_message), // parse armored message
+            publicKeys: (await OpenPGP.key.readArmored(public_key.public_key)).keys,  // for verification (optional)
+            privateKeys: [private_key]                                     // for decryption
+        }
+        console.log('options', options)
+
+
+        return new Promise((resolve, reject) => {
+            OpenPGP
+                .decrypt(options)
+                .then(message => {
+                    console.log(plaintext.data)
+                    return plaintext.data     // 'Hello, World!'
+                })
+        })
+    }
 }
 
 

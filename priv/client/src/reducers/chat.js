@@ -1,7 +1,7 @@
 import {
     DISPLAY_MESSAGE,
     NEW_USER
-} from '../constants/chat';
+}                                           from '../constants/chat';
 import { concat, filter, matches, isEmpty } from 'lodash';
 
 const initialState = {
@@ -13,7 +13,7 @@ export default (state = initialState, action) => {
     switch (action.type) {
         case DISPLAY_MESSAGE: {
             // all the informations about the message
-            let informations = {
+            const informations = {
                 author: action.author,
                 message: action.message
             }
@@ -24,8 +24,8 @@ export default (state = initialState, action) => {
         }
 
         case NEW_USER: {
-            let { user, public_key } = action;
-            let user_informations = {
+            const { user, public_key } = action;
+            const user_informations = {
                 user,
                 public_key
             };

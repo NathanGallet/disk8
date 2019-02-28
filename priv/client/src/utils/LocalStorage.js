@@ -1,6 +1,6 @@
 import { isEmpty } from 'lodash';
 
-const parse = JSON.parse;
+const parse     = JSON.parse;
 const stringify = JSON.stringify;
 
 class LocalStorage {

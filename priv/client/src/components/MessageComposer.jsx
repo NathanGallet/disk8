@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
-import { isEmpty } from 'lodash';
-import TextField from '@material-ui/core/TextField';
-import { withStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
-import SendIcon from '@material-ui/icons/Send';
+import { isEmpty }          from 'lodash';
+import TextField            from '@material-ui/core/TextField';
+import { withStyles }       from '@material-ui/core/styles';
+import Button               from '@material-ui/core/Button';
+import SendIcon             from '@material-ui/icons/Send';
 
 class MessageComposer extends Component {
 

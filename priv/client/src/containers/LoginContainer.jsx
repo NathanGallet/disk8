@@ -1,14 +1,14 @@
-import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
-import { withStyles } from '@material-ui/core/styles';
-import { connect } from 'react-redux';
+import React, { Component }   from 'react';
+import { connect }            from 'react-redux';
 import { bindActionCreators } from 'redux';
-import Grid from '@material-ui/core/Grid';
-import { withSnackbar } from 'notistack';
+import { Link }               from 'react-router-dom';
+import { withSnackbar }       from 'notistack';
+import Button                 from '@material-ui/core/Button';
+import TextField              from '@material-ui/core/TextField';
+import { withStyles }         from '@material-ui/core/styles';
+import Grid                   from '@material-ui/core/Grid';
 
-import * as actions from '../actions/authentification';
+import * as actions     from '../actions/authentification';
 import { trim, isNull } from 'lodash';
 
 class LoginContainer extends Component {

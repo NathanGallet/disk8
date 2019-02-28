@@ -1,4 +1,4 @@
-import Requests from '../utils/requests';
+import Requests                   from '../utils/Requests';
 import { STATUS_SUCCESS_CREATED } from '../constants/code_server';
 
 /*
